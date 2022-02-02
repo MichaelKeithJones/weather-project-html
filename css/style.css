@@ -1,0 +1,147 @@
+/*
+Project Root
+└── srs
+    ├── styles                  // Base styles. Styles placed here should be available anywhere in the application
+        ├── variables           // Variables used in the custom theme
+        ├── fonts
+        ├── bootstrap-custom    // Custom styles that overwrite bootstrap
+        ├── custom              // Custom styles created for the application
+        └── img                 // Images used ONLY in stylesheets
+*/
+/*body {*/
+/*    background: rgba(0, 0, 0, 0.8);*/
+/*    color: whitesmoke;*/
+/*}*/
+
+/*-------------------------------------------*\
+    Variables
+\*-------------------------------------------*/
+
+:root {
+    --salmon: rgba(250, 128, 114, 0.56);
+    --teal: rgba(0, 128, 128, 0.82);
+    --muted: #6c757d;
+}
+
+/*-------------------------------------------*\
+    General
+\*-------------------------------------------*/
+
+.section-spacing { margin: 0 0 50px 0; }
+
+/*-------------------------------------------*\
+    Header
+\*-------------------------------------------*/
+#header {
+    background-image: url("../img/sky-unsplash.png");
+    background-size: cover;
+}
+#title {
+    font-size: 5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    border-right: 3px solid var(--salmon);
+    padding-right: 5px;
+}
+#subtitle {
+    font-size: 1.2rem;
+    /*color: rgb(0, 128, 128);*/
+    color: var(--teal);
+}
+
+/*-------------------------------------------*\
+    Main - Current Weather
+\*-------------------------------------------*/
+#current-weather #date-time { color: var(--salmon); }
+#current-weather #city-country {
+    border-bottom: 1px solid var(--teal);
+    width: 300px;
+}
+#current-weather #current-temp {
+    font-size: 96px;
+    display: inline-block;
+}
+#current-weather #feels-like {
+    color: var(--muted);
+    font-size: 24px;
+    display: inline-block;
+}
+#current-weather #weather-icon {
+    float: left;
+    margin: 20px 0 0 0;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+#current-weather #clouds-description { font-size: 24px; }
+#current-weather #details-section {
+    border-left: 1px solid var(--teal);
+    padding-left: 20px;
+}
+#current-weather ul {
+    list-style: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    padding: 0;
+}
+#current-weather .details-style { font-size: 12px; }
+
+/*-------------------------------------------*\
+    Main - Map
+\*-------------------------------------------*/
+
+#map {
+    box-shadow: var(--salmon) 0px 5px 15px;
+    height: 400px;
+}
+
+/*-------------------------------------------*\
+    Main - 5 Forecast
+\*-------------------------------------------*/
+
+#five-day-forecast { background: var(--salmon) }
+#five-day-forecast .card-bg-color { background: var(--teal); }
+#five-day-forecast img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+}
+
+.box-shadow-teal {
+    box-shadow: rgba(0, 128, 128, 0.32) 0px 5px 15px;
+
+}
+
+.hourly-charts {
+    width: 90%;
+    height: 300px;
+}
+.news-card-img {
+    height: 225px;
+    width: auto;
+    display: block;
+    object-fit: cover;
+}
+.news-card-anchor { text-decoration: none; }
+footer a {
+    text-decoration: none;
+    color: lightsalmon;
+}
+h1, h2, h3, h4, h5, h6 { margin: 0;}
+.five-day-tabs {
+    color: rgba(0, 128, 128, 1);
+    border: none;
+    background: white;
+    border-radius: 4px;
+}
+.five-day-tabs:hover {
+    color: white;
+    background: rgba(0, 128, 128, 1);
+    border-radius: 4px;
+}
+
+/*-------------------------------------------*\
+    Main - Footer
+\*-------------------------------------------*/
+#footer { background: var(--teal) }

@@ -1,0 +1,591 @@
+<!doctype html>
+<html>
+    <head lang="en-US">
+        <!-- Purpose: Declares the character set and character encoding method -->
+        <meta charset="utf-8" />
+        <!-- Purpose: Establishes the viewport by setting the viewable area to the device width and initial zoom to 1 -->
+        <meta name="=viewport" content="width=device-width, initial-scale=1.0" />
+
+        <title>Weather Map Project</title>
+        <!-- Purpose: Sets the browser tab icon to a local image -->
+        <link rel="icon" type="image/x-icon" href="img/rainy-day.png" />
+
+        <!----------------------------------
+         EXTERNAL LINKS
+        ------------------------------------>
+
+        <!-- Loading: Font Awesome 4.7.0 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <!-- Loading: Bootstrap CSS Framework 5.0.2 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+        <!-- Loading: Mapbox GL API 2.6.1 -->
+        <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
+        <!-- Loading: Mapbox GL Geocoder 4.7.2 -->
+        <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css" />
+
+        <!----------------------------------
+        INTERNAL LINKS
+        ------------------------------------>
+
+        <link rel="stylesheet" href="css/style.css" />
+    </head>
+<body>
+
+<!-- Header -->
+<header id="header" class="section-spacing px-5">
+    <nav class="navbar navbar-dark py-4">
+        <a class="navbar-brand" href="#">
+            <span id="title">Weather</span><!-- #title -->
+            <span id="subtitle">PRO</span><!-- #subtitle -->
+        </a>
+
+        <div class="col-12 col-md-6">
+            <div class="input-group">
+                <span class="input-group-text text-light bg-secondary">City</span>
+                <input id="header-search-bar" class="form-control" type="search" placeholder="Name" />
+                <input id="header-search-btn" class="btn btn-secondary" type="button" value="Search" />
+                <button type="button" class="btn btn-secondary"><i class="fa fa-adjust" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </nav>
+</header><!-- #header -->
+
+<!-- Content -->
+<main class='container'>
+
+    <!-- Current Weather and Map -->
+    <!-- Purpose: Displays the current weather conditions and city map -->
+    <!-- Note: Medium or larger screens show 2 columns (row-cols-md-2), otherwise default is 1 column -->
+    <div class="row row-cols-1 row-cols-md-2 section-spacing">
+        <div id="current-weather" class="col">
+            <h6 id='date-time'></h6>
+            <h1 id="city-country"></h1>
+            <div id="current-temp"></div>
+            <div id="feels-like"></div>
+            <img id="weather-icon"/>
+            <div id="clouds-description"></div>
+            <div id="details-section">
+                <ul>
+                    <li id="wind-speed" class="details-style">Wind: </li>
+                    <li id="humidity" class="details-style">Humidity: </li>
+                    <li id="visibility" class="details-style">Visibility: </li>
+                    <li id="pressure" class="details-style">Pressure: </li>
+                    <li id="sunrise" class="details-style">Sunrise: </li>
+                    <li id="sunset" class="details-style">Sunset: </li>
+                </ul>
+            </div>
+        </div>
+        <div id="map" class="col"></div>
+    </div>
+
+    <!-- 5 Day Forecast -->
+    <div id="five-day-forecast" class="row row-cols-2 row-cols-md-3 row-cols-lg-5 text-center py-4 section-spacing">
+        <div class="col">
+            <div class="card shadow forecast">
+                <div class="card-header text-white card-bg-color">
+                    <h4 class="my-0 fw-normal"></h4>
+                </div>
+                <div class="card-body">
+                    <img/><br>
+                    <h1 class="card-title d-inline-block"></h1>
+                    <small class="text-muted fw-light"></small>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- d-none d-md-block: Hidden on screens smaller than medium -->
+        <div class="col d-none d-md-block">
+            <div class="card shadow forecast">
+                <div class="card-header text-white card-bg-color">
+                    <h4 class="my-0 fw-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                    <img/><br>
+                    <h1 class="card-title d-inline-block"></h1>
+                    <small class="text-muted fw-light"></small>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- d-none d-md-block: Hidden on screens smaller than medium -->
+        <div class="col d-none d-md-block">
+            <div class="card shadow forecast">
+                <div class="card-header text-white card-bg-color">
+                    <h4 class="my-0 fw-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                    <img/><br>
+                    <h1 class="card-title d-inline-block"></h1>
+                    <small class="text-muted fw-light"></small>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- d-none d-lg-block: Hidden on screens smaller than large -->
+        <div class="col d-none d-lg-block">
+            <div class="card shadow forecast">
+                <div class="card-header text-white card-bg-color">
+                    <h4 class="my-0 fw-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                    <img/><br>
+                    <h1 class="card-title d-inline-block"></h1>
+                    <small class="text-muted fw-light"></small>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- d-none d-lg-block: Hidden on screens smaller than large -->
+        <div class="col d-none d-lg-block">
+            <div class="card shadow forecast">
+                <div class="card-header text-white card-bg-color">
+                    <h4 class="my-0 fw-normal">Free</h4>
+                </div>
+                <div class="card-body">
+                    <img/><br>
+                    <h1 class="card-title d-inline-block"></h1>
+                    <small class="text-muted fw-light"></small>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hourly Readings for Humidity, Pressure and Wind -->
+    <div class="row section-spacing">
+        <nav>
+            <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
+                <button class="five-day-tabs active" id="nav-humidity-tab" data-bs-toggle="tab" data-bs-target="#nav-humidity" type="button" role="tab">Humidity</button>
+                <button class="five-day-tabs" id="nav-pressure-tab" data-bs-toggle="tab" data-bs-target="#nav-pressure" type="button" role="tab">Pressure</button>
+                <button class="five-day-tabs" id="nav-wind-tab" data-bs-toggle="tab" data-bs-target="#nav-wind" type="button" role="tab">Wind</button>
+            </div>
+        </nav>
+
+        <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
+            <div class="hourly-charts tab-pane fade show active" id="nav-humidity" role="tabpanel">
+                <canvas id="humidity-chart"></canvas>
+            </div>
+            <div class="hourly-charts tab-pane fade" id="nav-pressure" role="tabpanel">
+                <canvas id="pressure-chart"></canvas>
+            </div>
+            <div class="hourly-charts tab-pane fade" id="nav-wind" role="tabpanel">
+                <canvas id="wind-chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Weather News -->
+    <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 d-flex justify-content-center mt-4 section-spacing">
+        <div class="col">
+            <div id='news-card-one' class="card news-card mb-4 box-shadow-teal">
+                <img class="card-img-top news-card-img">
+                <div class="card-body">
+                    <p class="card-text"></p>
+                    <small class="text-muted"></small>
+                    <a target="_blank" class="news-card-anchor stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- d-none d-md-block: Hidden on screens smaller than medium -->
+        <div class="col d-none d-md-block">
+            <div  id='news-card-two' class="card news-card mb-4 box-shadow-teal">
+                <img class="card-img-top news-card-img">
+                <div class="card-body">
+                    <p class="card-text"></p>
+                    <small class="text-muted"></small>
+                    <a target="_blank" class="news-card-anchor stretched-link"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- d-none d-md-block: Hidden on screens smaller than medium -->
+        <div class="col d-none d-md-block">
+            <div id='news-card-three' class="card news-card mb-4 box-shadow-teal">
+                <img class="card-img-top news-card-img">
+                <div class="card-body">
+                    <p class="card-text"></p>
+                    <small class="text-muted"></small>
+                    <a target="_blank" class="news-card-anchor stretched-link"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="teal text-light py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Back to top</a>
+        </p>
+        <div class="col-6 col-md">
+            <h5 class="pb-2" style="border-bottom: 3px solid white; font-size: 32px; width: 100px;">About</h5>
+            <ul class="list-unstyled text-small pt-2">
+                <li class="mb-1"><a class=" text-decoration-none" href="#">Team</a></li>
+                <li class="mb-1"><a class=" text-decoration-none" href="#">Locations</a></li>
+                <li class="mb-1"><a class=" text-decoration-none" href="#">Privacy</a></li>
+                <li class="mb-1"><a class=" text-decoration-none" href="#">Terms</a></li>
+            </ul>
+        </div>
+        <div class="col-12 col-md">
+            <small class="d-block mb-3">&copy; 2017–2021</small>
+        </div>
+    </div>
+</footer>
+
+<script src="js/jquery-2.2.4.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- Chart.js -->
+<script src="js/chart.js"></script>
+<script src=".gitignore/key.js"></script>
+<script>
+
+    //-- Utility Constants
+    const DEGREE = '\u00B0';
+
+    //-- Utility Functions
+    const capitalizeFirstLetter = string => string.replace(/^./, string[0].toUpperCase());
+    const getWeekday = date => date.toLocaleString('en-us', { weekday: 'short'});
+    const formatDate = date => date.toLocaleString('en-us', { month: 'short', day: 'numeric'});
+    const formatTime = time => time.toLocaleString('en-us', { timeStyle: 'short', timeZone: 'US/Central'});
+    let getDateTime = (dt, timezone) => new Date(dt*1000+(timezone*1000));
+
+    //-- Mapbox API Token
+    mapboxgl.accessToken = MAPBOX_API_KEY;
+
+    //-- Constant Variables
+    const STARTING_MAPBOX_COORD = [-98.489597, 29.42681];                   // Starting position: 600 Navarro St #600, San Antonio, TX 78205
+    const STARTING_MAPBOX_ZOOM = 15;                                        // Starting zoom
+    const STARTING_MAPBOX_STYLE = 'mapbox://styles/mapbox/streets-v9'       // Starting mapbox map style - Street v9
+
+    //-- Instance Variables
+    let map = new mapboxgl.Map({
+        container: 'map',                                                   // Mapbox map ID
+        style:  STARTING_MAPBOX_STYLE,
+        center: STARTING_MAPBOX_COORD,
+        zoom:   STARTING_MAPBOX_ZOOM
+    });
+    let marker = new mapboxgl.Marker({ draggable: true }).setLngLat(STARTING_MAPBOX_COORD).addTo(map);
+
+    //-- Map Functions
+    function geocode(search, token) {
+        var baseUrl = 'https://api.mapbox.com';
+        var endPoint = '/geocoding/v5/mapbox.places/';
+        return fetch(baseUrl + endPoint + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
+            .then(function(res) {
+                return res.json();
+            }).then(function(data) {
+                return data.features[0].center;
+            });
+    }
+
+    //-- Event Handlers
+    $('#header-search-btn').on('click', () => {
+        let location = $('#header-search-bar').val();
+        geocode(location, MAPBOX_API_KEY).then(function(coordinates) {
+            marker.setLngLat(coordinates);
+            map.flyTo({
+                zoom: 15,
+                bearing: 0,
+                center: [
+                    coordinates[0],
+                    coordinates[1]
+                ],
+                essential: true
+            });
+            getOpenWeatherData(coordinates[0], coordinates[1]);
+        });
+    });
+    $('#header-search-bar').on('keyup', (event) => {
+        if (event.keyCode === 13) {
+            let location = $('#header-search-bar').val();
+            geocode(location, MAPBOX_API_KEY).then(function(coordinates) {
+                marker.setLngLat(coordinates);
+                map.flyTo({
+                    zoom: 15,
+                    bearing: 0,
+                    center: [
+                        coordinates[0],
+                        coordinates[1]
+                    ],
+                    essential: true
+                });
+                getOpenWeatherData(coordinates[0], coordinates[1]);
+            });
+        }
+        return null;
+    });
+    marker.on('dragend', () => {
+        map.flyTo({
+            zoom: 15,
+            bearing: 0,
+            center: [
+                marker.getLngLat().lng,
+                marker.getLngLat().lat
+            ],
+            essential: true
+        });
+        getOpenWeatherData(marker.getLngLat().lng, marker.getLngLat().lat);
+    });
+
+    // Open Weather API Logic
+    const OPEN_WEATHER_MAP_WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather';
+    const OPEN_WEATHER_MAP_FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast';
+    let humidityChart = {};
+    let pressureChart = {};
+    let windChart = {};
+    let getOpenWeatherData = function(longitude, latitude) {
+        $.ajax({
+            url: OPEN_WEATHER_MAP_WEATHER_URL,
+            type: 'GET',
+            data: {
+                lat:    latitude,
+                lon:    longitude,
+                appid:  OPEN_WEATHER_API_KEY,
+                units: 'imperial'
+            }
+        }).done(function(data) {
+            let city = $('#current-weather');
+            let date = formatDate(getDateTime(data.dt, data.timezone));
+            let time = formatTime(getDateTime(data.dt, data.timezone));
+            let sunrise = formatTime(getDateTime(data.sys.sunrise, data.timezone));
+            let sunset = formatTime(getDateTime(data.sys.sunset, data.timezone));
+            city.find('#date-time').text(`${date}, ${time}`);
+            city.find('#city-country').text(`${data.name}, ${data.sys.country}`);
+            city.find('#current-temp').text(`${data.main.temp.toPrecision(2)}${DEGREE}F`);
+            city.find('#feels-like').text(`${data.main.feels_like.toPrecision(2)}${DEGREE}F`);
+            city.find('img').attr('src',`http://openweathermap.org/img/wn/${data.weather[0].icon}.png`);
+            city.find('#clouds-description').text(`${capitalizeFirstLetter(data.weather[0].description)}`);
+            city.find('#wind-speed').text(`Wind: ${data.wind.speed} mph`);
+            city.find('#humidity').text(`Humidity: ${data.main.humidity} %`);
+            city.find('#visibility').text(`Visibility: ${(data.visibility/1000).toFixed(1)} km`);
+            city.find('#pressure').text(`Pressure: ${data.main.pressure} hPa`);
+            city.find('#sunrise').text(`Sunrise: ${sunrise}`);
+            city.find('#sunset').text(`Sunset: ${sunset}`);
+        });
+        $.ajax({
+            url: OPEN_WEATHER_MAP_FORECAST_URL,
+            type: 'GET',
+            data: {
+                lat:    latitude,
+                lon:    longitude,
+                appid:  OPEN_WEATHER_API_KEY,
+                units: 'imperial'
+            }
+        }).done(data => {
+            let forecast = data.list.filter((element, index) => index % 8 === 0);
+
+            let days = [];
+            let humidity = [];
+            let pressure = [];
+            let wind_speed = [];
+            forecast.forEach(function(element) {
+                const date_time = new Date(element.dt_txt.split(' ').join('T'));
+                days.push(getWeekday(date_time));
+                humidity.push(element.main.humidity);
+                pressure.push(element.main.pressure);
+                wind_speed.push(element.wind.speed);
+            });
+
+            //-- Humidity Chart Configuration and Creation
+            if (Chart.getChart('humidity-chart') === undefined)
+                humidityChart = new Chart($('#humidity-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Humidity',
+                            data: humidity,
+                            backgroundColor: 'rgba(0, 128, 128, 0.1)',
+                            borderColor: 'rgba(0, 128, 128, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                min: 0,
+                                ticks: {
+                                    stepSize: 10
+                                }
+                            }
+                        }
+                    }
+                });
+            else {
+                humidityChart.destroy();
+                humidityChart = new Chart($('#humidity-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Humidity',
+                            data: humidity,
+                            backgroundColor: 'rgba(0, 128, 128, 0.1)',
+                            borderColor: 'rgba(0, 128, 128, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100,
+                                min: 0,
+                                ticks: {
+                                    stepSize: 10
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            //-- Pressure Chart Configuration and Creation
+            if (Chart.getChart('pressure-chart') === undefined)
+                pressureChart = new Chart($('#pressure-chart'), {
+                    type: 'bar',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Pressure',
+                            data: pressure,
+                            backgroundColor: 'rgba(250, 128, 114, 0.27)',
+                            borderColor: 'rgba(250, 128, 114, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 1200,
+                                min: 800,
+                                ticks: {
+                                    stepSize: 50
+                                }
+                            }
+                        }
+                    }
+                });
+            else {
+                pressureChart.destroy();
+                pressureChart = new Chart($('#pressure-chart'), {
+                    type: 'bar',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Pressure',
+                            data: pressure,
+                            backgroundColor: 'rgba(250, 128, 114, 0.27)',
+                            borderColor: 'rgba(250, 128, 114, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 1200,
+                                min: 800,
+                                ticks: {
+                                    stepSize: 50
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            //-- Wind Chart Configuration and Creation
+            if (Chart.getChart('wind-chart') === undefined)
+                windChart = new Chart($('#wind-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Wind speed',
+                            data: wind_speed,
+                            backgroundColor: 'rgba(0, 128, 128, 0.1)',
+                            borderColor: 'rgba(0, 128, 128, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            else {
+                windChart.destroy();
+                windChart = new Chart($('#wind-chart'), {
+                    type: 'line',
+                    data: {
+                        labels: days,
+                        datasets: [{
+                            label: 'Wind speed',
+                            data: wind_speed,
+                            backgroundColor: 'rgba(0, 128, 128, 0.1)',
+                            borderColor: 'rgba(0, 128, 128, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        maintainAspectRatio: false,
+                        animation: false,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+
+            $('.forecast').each(function(index) {
+                $(this).find('h4').text(`${days[index]}`);
+                $(this).find('img').attr('src',`http://openweathermap.org/img/wn/${forecast[index].weather[0].icon}.png`);
+                $(this).find('h1').text(`${forecast[index].main.temp.toPrecision(2)}${DEGREE}F`);
+                $(this).find('small').text(`${forecast[index].main.feels_like.toPrecision(2)}${DEGREE}F`);
+                $(this).find('p').text(`${capitalizeFirstLetter(forecast[index].weather[0].description)}`);
+            });
+        })
+    }
+    getOpenWeatherData(STARTING_MAPBOX_COORD[0], STARTING_MAPBOX_COORD[1]);
+
+    //-- News Cards API Logic
+    let createUrl = (search, date, sortBy, key) => { return `https://newsapi.org/v2/everything?q=${search}&from=${date}&sortBy=${sortBy}&apiKey=${key}`; }
+    let url = createUrl('Weather', '2022-02-01', 'popularity', NEWS_API_KEY);
+    function fetchNews() { return fetch(new Request(url)).then(res => res.json()).then(data => data); }
+    fetchNews().then(function(data) {
+        let articles = data.articles;
+
+        $('.news-card').each(function(index){
+            $(this).find('img').attr('src', `${articles[index].urlToImage}`);
+            $(this).find('p').html(`${articles[index].title}`);
+            $(this).find('small').html(`${formatDate(new Date(articles[index].publishedAt.slice(0, -1)))}`);
+            $(this).find('a').attr('href', `${articles[index].url}`);
+        });
+    });
+</script>
+</body>
+</html>
