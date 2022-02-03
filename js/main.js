@@ -463,9 +463,9 @@
     getOpenWeatherData(STARTING_MAPBOX_COORD[0], STARTING_MAPBOX_COORD[1]);
     fetchNews().then(function(data) {
         let articles = data.articles;
-
         $('.news-card').each(function(index){
             $(this).find('img').attr('src', `${articles[index].urlToImage}`);
+            $(this).find('h5').html(`${articles[index].source.name}`);
             $(this).find('p').html(`${articles[index].title}`);
             $(this).find('small').html(`${formatDate(new Date(articles[index].publishedAt.slice(0, -1)))}`);
             $(this).find('a').attr('href', `${articles[index].url}`);

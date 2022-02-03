@@ -29,6 +29,11 @@ body { background: var(--body-background-color); }
     General Styling
 \*-------------------------------------------*/
 h1, h2, h3, h4, h5, h6 { margin: 0;}
+h2 {
+    color: var(--current-weather-font-color);
+    border-bottom: 1px solid teal;
+    padding-bottom: 10px;
+}
 .section-spacing { margin: 0 0 50px 0; }
 
 /*-------------------------------------------*\
@@ -49,6 +54,10 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     font-size: 0.85rem;
     /*color: rgb(0, 128, 128);*/
     color: var(--teal);
+}
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid lightgrey;
 }
 
 /*-------------------------------------------*\
