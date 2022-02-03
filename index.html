@@ -63,9 +63,11 @@
             <div id="current-weather" class="col">
                 <h6 id='date-time'></h6>
                 <h1 id="city-country"></h1>
-                <div id="current-temp"></div>
-                <div id="feels-like"></div>
-                <img id="weather-icon"/>
+                <div id="container">
+                    <img id="weather-icon"/>
+                    <div id="current-temp"></div>
+                    <div id="feels-like"></div>
+                </div>
                 <div id="clouds-description"></div>
                 <div id="details-section">
                     <ul>
@@ -269,26 +271,19 @@
     <script src=".gitignore/key.js"></script>
     <script>
 
-        //-- Utility Constants
+        /*----------------------------------
+        CONSTANTS VARIABLES
+        ----------------------------------*/
         const DEGREE = '\u00B0';
-
-        //-- Utility Functions
-        const capitalizeFirstLetter = string => string.replace(/^./, string[0].toUpperCase());
-        const getWeekday = date => date.toLocaleString('en-us', { weekday: 'short'});
-        const formatDate = date => date.toLocaleString('en-us', { month: 'short', day: 'numeric'});
-        const formatTime = time => time.toLocaleString('en-us', { timeStyle: 'short', timeZone: 'US/Central'});
-        let getDateTime = (dt, timezone) => new Date(dt*1000+(timezone*1000));
-
-        //-- Mapbox API Token
-        mapboxgl.accessToken = MAPBOX_API_KEY;
-
-        //-- Constant Variables
         const STARTING_MAPBOX_COORD = [-98.489597, 29.42681];                   // Starting position: 600 Navarro St #600, San Antonio, TX 78205
         const STARTING_MAPBOX_ZOOM = 15;                                        // Starting zoom
         const STARTING_MAPBOX_STYLE = 'mapbox://styles/mapbox/streets-v9'       // Starting mapbox map style - Street v9
 
-        //-- Instance Variables
+        /*----------------------------------
+        GLOBAL VARIABLES
+        ----------------------------------*/
         let map = new mapboxgl.Map({
+            accessToken: MAPBOX_API_KEY,
             container: 'map',                                                   // Mapbox map ID
             style:  STARTING_MAPBOX_STYLE,
             center: STARTING_MAPBOX_COORD,
@@ -296,7 +291,14 @@
         });
         let marker = new mapboxgl.Marker({ draggable: true }).setLngLat(STARTING_MAPBOX_COORD).addTo(map);
 
-        //-- Map Functions
+        /*----------------------------------
+        FUNCTIONS
+        ----------------------------------*/
+        const capitalizeFirstLetter = string => string.replace(/^./, string[0].toUpperCase());
+        const getWeekday = date => date.toLocaleString('en-us', { weekday: 'short'});
+        const formatDate = date => date.toLocaleString('en-us', { month: 'short', day: 'numeric'});
+        const formatTime = time => time.toLocaleString('en-us', { timeStyle: 'short', timeZone: 'US/Central'});
+        let getDateTime = (dt, timezone) => new Date(dt*1000+(timezone*1000));
         function geocode(search, token) {
             var baseUrl = 'https://api.mapbox.com';
             var endPoint = '/geocoding/v5/mapbox.places/';
@@ -308,7 +310,9 @@
                 });
         }
 
-        //-- Event Handlers
+        /*----------------------------------
+        EVENT HANDLERS
+        ----------------------------------*/
         $('#header-search-btn').on('click', () => {
             let location = $('#header-search-bar').val();
             geocode(location, MAPBOX_API_KEY).then(function(coordinates) {
@@ -357,7 +361,10 @@
             getOpenWeatherData(marker.getLngLat().lng, marker.getLngLat().lat);
         });
 
-        // Open Weather API Logic
+        /*----------------------------------
+        OPEN WEATHER API LOGIC
+        ----------------------------------*/
+        //-- Purpose: Fills the current weather & 5 day weather forecast. Also creates reading charts. --//
         const OPEN_WEATHER_MAP_WEATHER_URL = 'http://api.openweathermap.org/data/2.5/weather';
         const OPEN_WEATHER_MAP_FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast';
         let humidityChart = {};
@@ -593,10 +600,16 @@
         }
         getOpenWeatherData(STARTING_MAPBOX_COORD[0], STARTING_MAPBOX_COORD[1]);
 
-        //-- News Cards API Logic
+        /*----------------------------------
+        NEWS API LOGIC
+        ----------------------------------*/
+        //-- Purpose: Fills the 3 news cards with current weather news stories. --//
         let createUrl = (search, date, sortBy, key) => { return `https://newsapi.org/v2/everything?q=${search}&from=${date}&sortBy=${sortBy}&apiKey=${key}`; }
-        let url = createUrl('Weather', '2022-02-01', 'popularity', NEWS_API_KEY);
-        function fetchNews() { return fetch(new Request(url)).then(res => res.json()).then(data => data); }
+        let url = createUrl('Weather', '2022-02-02', 'relevancy', NEWS_API_KEY);
+        function fetchNews() { return fetch(new Request(url)).then(res => res.json()).then(data => {
+            console.log(data);
+            return data;
+        }); }
         fetchNews().then(function(data) {
             let articles = data.articles;
 

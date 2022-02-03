@@ -55,18 +55,22 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     border-bottom: 1px solid var(--teal);
     width: 300px;
 }
+#current-weather #container {
+    position: relative;
+}
 #current-weather #current-temp {
-    font-size: 96px;
+    padding-left: 96px;
+    font-size: 5rem;
     display: inline-block;
 }
 #current-weather #feels-like {
     color: var(--muted);
-    font-size: 24px;
+    font-size: 1.5rem;
     display: inline-block;
 }
 #current-weather #weather-icon {
-    float: left;
-    margin: 20px 0 0 0;
+    top: 10px;
+    position: absolute;
     width: 100px;
     height: 100px;
     object-fit: cover;
