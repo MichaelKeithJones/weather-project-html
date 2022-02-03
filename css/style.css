@@ -1,4 +1,7 @@
 /*
+/*-------------------------------------------*\
+LAYOUT:
+/*-------------------------------------------*\
 Project Root
 └── styles
     ├── variables
@@ -7,19 +10,20 @@ Project Root
     ├── main
     └── footer
 */
-/*body {*/
-/*    background: rgba(0, 0, 0, 0.8);*/
-/*    color: whitesmoke;*/
-/*}*/
 
 /*-------------------------------------------*\
     Global Variables
 \*-------------------------------------------*/
 :root {
-    --salmon: rgba(250, 128, 114, 0.8);
-    --teal: rgba(0, 128, 128, 0.82);
+    --salmon: rgb(252, 154, 145);
+    --teal: rgb(1, 148, 148);
+    --body-background-color: white;
+    --current-weather-font-color: black;
+    --chart-tab-font-color: var(--teal);
     --muted: #6c757d;
 }
+
+body { background: var(--body-background-color); }
 
 /*-------------------------------------------*\
     General Styling
@@ -54,6 +58,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
 #current-weather #city-country {
     border-bottom: 1px solid var(--teal);
     width: 300px;
+    color: var(--current-weather-font-color);
 }
 #current-weather #container {
     position: relative;
@@ -62,6 +67,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     padding-left: 96px;
     font-size: 5rem;
     display: inline-block;
+    color: var(--current-weather-font-color);
 }
 #current-weather #feels-like {
     color: var(--muted);
@@ -75,7 +81,10 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     height: 100px;
     object-fit: cover;
 }
-#current-weather #clouds-description { font-size: 24px; }
+#current-weather #clouds-description {
+    color: var(--current-weather-font-color);
+    font-size: 24px;
+}
 #current-weather #details-section {
     border-left: 1px solid var(--teal);
     padding-left: 20px;
@@ -87,7 +96,10 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     -moz-columns: 2;
     padding: 0;
 }
-#current-weather .details-style { font-size: 12px; }
+#current-weather .details-style {
+    font-size: 12px;
+    color: var(--current-weather-font-color);
+}
 #map {
     box-shadow: var(--salmon) 0px 5px 15px;
     height: 400px;
@@ -108,9 +120,9 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     Main - 5 Day Readings Charts for Humidity, Pressure and Wind
 \*-------------------------------------------*/
 #nav-tab .btn-style {
-    color: rgba(0, 128, 128, 1);
+    color: var(--chart-tab-font-color);
+    background: transparent;
     border: none;
-    background: white;
     border-radius: 4px;
 }
 #nav-tab .btn-style:hover {
@@ -130,7 +142,7 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
     box-shadow: var(--teal) 0px 5px 15px;
     transition: transform 0.25s linear;
 }
-.news-card:hover { transform: perspective(500px) translate3d(0, 0, 10px); }
+.news-card:hover { transform: perspective(500px) translate3d(0, 0, 15px); }
 .news-card img {
     height: 225px;
     width: auto;
