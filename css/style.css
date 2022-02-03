@@ -15,7 +15,6 @@ Project Root
 /*-------------------------------------------*\
     Global Variables
 \*-------------------------------------------*/
-
 :root {
     --salmon: rgba(250, 128, 114, 0.8);
     --teal: rgba(0, 128, 128, 0.82);
@@ -25,7 +24,6 @@ Project Root
 /*-------------------------------------------*\
     General Styling
 \*-------------------------------------------*/
-
 h1, h2, h3, h4, h5, h6 { margin: 0;}
 .section-spacing { margin: 0 0 50px 0; }
 
@@ -94,7 +92,6 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
 /*-------------------------------------------*\
     Main - 5 Day Forecast
 \*-------------------------------------------*/
-
 #five-day-forecast { background: var(--salmon) }
 #five-day-forecast .card-bg-color { background: var(--teal); }
 #five-day-forecast img {
@@ -125,8 +122,11 @@ h1, h2, h3, h4, h5, h6 { margin: 0;}
 /*-------------------------------------------*\
     Main - Weather News API Links
 \*-------------------------------------------*/
-
-.news-card { box-shadow: var(--teal) 0px 5px 15px; }
+.news-card {
+    box-shadow: var(--teal) 0px 5px 15px;
+    transition: transform 0.25s linear;
+}
+.news-card:hover { transform: perspective(500px) translate3d(0, 0, 10px); }
 .news-card img {
     height: 225px;
     width: auto;
