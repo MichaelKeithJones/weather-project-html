@@ -1,12 +1,11 @@
 /*
 Project Root
-└── srs
-    ├── styles                  // Base styles. Styles placed here should be available anywhere in the application
-        ├── variables           // Variables used in the custom theme
-        ├── fonts
-        ├── bootstrap-custom    // Custom styles that overwrite bootstrap
-        ├── custom              // Custom styles created for the application
-        └── img                 // Images used ONLY in stylesheets
+└── styles
+    ├── variables
+    ├── general
+    ├── header
+    ├── main
+    └── footer
 */
 /*body {*/
 /*    background: rgba(0, 0, 0, 0.8);*/
@@ -14,19 +13,20 @@ Project Root
 /*}*/
 
 /*-------------------------------------------*\
-    Variables
+    Global Variables
 \*-------------------------------------------*/
 
 :root {
-    --salmon: rgba(250, 128, 114, 0.56);
+    --salmon: rgba(250, 128, 114, 0.8);
     --teal: rgba(0, 128, 128, 0.82);
     --muted: #6c757d;
 }
 
 /*-------------------------------------------*\
-    General
+    General Styling
 \*-------------------------------------------*/
 
+h1, h2, h3, h4, h5, h6 { margin: 0;}
 .section-spacing { margin: 0 0 50px 0; }
 
 /*-------------------------------------------*\
@@ -37,20 +37,20 @@ Project Root
     background-size: cover;
 }
 #title {
-    font-size: 5rem;
+    font-size: 3rem;
     font-weight: 300;
     line-height: 1.2;
     border-right: 3px solid var(--salmon);
     padding-right: 5px;
 }
 #subtitle {
-    font-size: 1.2rem;
+    font-size: 0.85rem;
     /*color: rgb(0, 128, 128);*/
     color: var(--teal);
 }
 
 /*-------------------------------------------*\
-    Main - Current Weather
+    Main - Current Weather and Map
 \*-------------------------------------------*/
 #current-weather #date-time { color: var(--salmon); }
 #current-weather #city-country {
@@ -86,18 +86,13 @@ Project Root
     padding: 0;
 }
 #current-weather .details-style { font-size: 12px; }
-
-/*-------------------------------------------*\
-    Main - Map
-\*-------------------------------------------*/
-
 #map {
     box-shadow: var(--salmon) 0px 5px 15px;
     height: 400px;
 }
 
 /*-------------------------------------------*\
-    Main - 5 Forecast
+    Main - 5 Day Forecast
 \*-------------------------------------------*/
 
 #five-day-forecast { background: var(--salmon) }
@@ -108,40 +103,51 @@ Project Root
     object-fit: cover;
 }
 
-.box-shadow-teal {
-    box-shadow: rgba(0, 128, 128, 0.32) 0px 5px 15px;
-
-}
-
-.hourly-charts {
-    width: 90%;
-    height: 300px;
-}
-.news-card-img {
-    height: 225px;
-    width: auto;
-    display: block;
-    object-fit: cover;
-}
-.news-card-anchor { text-decoration: none; }
-footer a {
-    text-decoration: none;
-    color: lightsalmon;
-}
-h1, h2, h3, h4, h5, h6 { margin: 0;}
-.five-day-tabs {
+/*-------------------------------------------*\
+    Main - 5 Day Readings Charts for Humidity, Pressure and Wind
+\*-------------------------------------------*/
+#nav-tab .btn-style {
     color: rgba(0, 128, 128, 1);
     border: none;
     background: white;
     border-radius: 4px;
 }
-.five-day-tabs:hover {
+#nav-tab .btn-style:hover {
     color: white;
     background: rgba(0, 128, 128, 1);
     border-radius: 4px;
 }
+#nav-tabContent .charts {
+    width: 90%;
+    height: 300px;
+}
+
+/*-------------------------------------------*\
+    Main - Weather News API Links
+\*-------------------------------------------*/
+
+.news-card { box-shadow: var(--teal) 0px 5px 15px; }
+.news-card img {
+    height: 225px;
+    width: auto;
+    display: block;
+    object-fit: cover;
+}
+.news-card a { text-decoration: none; }
 
 /*-------------------------------------------*\
     Main - Footer
 \*-------------------------------------------*/
 #footer { background: var(--teal) }
+#footer h5 {
+    border-bottom: 3px solid white;
+    font-size: 32px;
+    width: 100px;
+}
+#footer a {
+    text-decoration: none;
+    color: var(--salmon);
+}
+#footer a:hover {
+    color: white;
+}
