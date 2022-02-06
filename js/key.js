@@ -1,3 +1,0 @@
-const OPEN_WEATHER_API_KEY = 'd63fb458c2b8c41086f21cf57e5f0a41';
-const MAPBOX_API_KEY = 'pk.eyJ1Ijoia21qb25lcyIsImEiOiJja3l5eXpuaGowdml5MnVxazN5aWdkZGQ2In0.zQle-EdE03ifOcejkJBhYQ';
-const NEWS_API_KEY = '08c2370e1936472a920d50fcb375e818';
