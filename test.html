@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+        <title>Weather Map Project</title>
+        <link rel="icon" type="image/x-icon" href="./img/rainy-day.png" />
+
+        <!-- Loading: Font Awesome 4.7.0 -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <!-- Loading: Bootstrap CSS Framework 5.0.2 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+
+        <style>
+
+            @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+            /*-------------------------------------------*\
+            Global Variables
+            \*-------------------------------------------*/
+            :root {
+                --salmon: rgb(252, 154, 145);
+                --teal: rgb(1, 148, 148);
+                --body-background-color: white;
+                --current-weather-font-color: black;
+                --chart-tab-font-color: var(--teal);
+                --muted: #6c757d;
+            }
+
+            * {
+                padding: 0;
+                margin: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                background: var(--body-background-color);
+                font-family:'Roboto', sans-serif;
+            }
+
+            /*-------------------------------------------*\
+                General Styling
+            \*-------------------------------------------*/
+            h1, h2, h3, h4, h5, h6 { margin: 0;}
+            h2 {
+                color: var(--current-weather-font-color);
+                border-bottom: 1px solid teal;
+                padding-bottom: 10px;
+            }
+            .section-spacing { margin: 0 0 50px 0; }
+
+            /*-------------------------------------------*\
+                Header
+            \*-------------------------------------------*/
+            #header {
+                background-image: url("./img/sky-unsplash.png");
+                background-size: cover;
+
+                padding-right: 3rem;
+                padding-left: 3rem;
+            }
+
+            #navbar {
+                padding: 30px 0;
+                display: flex;
+                justify-content: space-between;
+            }
+            #navbar a { text-decoration: none; }
+            #navbar .brand{
+                display: flex;
+                align-items: baseline;
+            }
+            #navbar .title {
+                color: white;
+                font-size: 3rem;
+                font-weight: 300;
+                line-height: 1.2;
+                border-right: 3px solid var(--salmon);
+                padding-right: 5px;
+            }
+            #navbar .subtitle {
+                color: var(--teal);
+                font-size: 0.85rem;
+                padding-left: 6px;
+            }
+            #navbar .dark-background {
+                color: white;
+                background: #6c757d;
+                padding: 6px 12px;
+                margin-top: 8px;
+                font-size: 17px;
+                border: none;
+            }
+            #navbar .searchbar-label {
+                float: left;
+                border-radius: 5px 0 0 5px;
+                cursor: default;
+            }
+            #navbar .searchbar-style {
+                width: 400px;
+                padding: 6px;
+                margin-top: 8px;
+                font-size: 17px;
+                border: none;
+                outline: 0;
+            }
+            #navbar .searchbar-button {
+                float: right;
+                cursor: pointer;
+            }
+            #navbar .dark-mode-button { border-radius: 0 5px 5px 0; }
+            #navbar .searchbar-button:hover {
+                transition: 0.25s;
+                background: #586169;
+            }
+
+            /*-------------------------------------------*\
+                Main
+            \*-------------------------------------------*/
+
+            #main {
+                max-width: 1140px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(4, 1fr);
+            }
+
+            #hourly-readings {
+                grid-column: span 2;
+            }
+
+            #top-stories {
+                grid-column: span 2;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!----------------------------------
+         HEADER
+        ------------------------------------>
+
+        <header id="header" class="section-spacing">
+            <nav id="navbar">
+                <a class="brand" href="/" >
+                    <span class="title">Weather</span>
+                    <span class="subtitle">PRO</span>
+                </a>
+                <div>
+                    <div                            class="searchbar-label dark-background">City</div>
+                    <input  id="searchbar"          class="searchbar-style" type="text" placeholder="Name"><!-- #searchbar -->
+                    <div    id="dark-mode-button"   class="searchbar-button dark-mode-button dark-background"><i class="fa fa-adjust"></i></div><!-- #dark-mode-button -->
+                    <div    id="search-button"      class="searchbar-button dark-background">Search</div><!-- #searchbar-button -->
+                </div>
+            </nav>
+        </header><!-- #header -->
+
+        <!----------------------------------
+         MAIN
+        ------------------------------------>
+
+        <main id="main">
+            <div id="current-weather"></div>
+            <div id="seven-day-forecast"></div>
+            <div id="hourly-readings"></div>
+            <div id="top-stories"></div>
+        </main>
+
+        <!----------------------------------
+         EXTERNAL DEPENDENCIES
+        ------------------------------------>
+
+        <!-- jQuery -->
+        <script src="js/jquery-2.2.4.js"></script>
+        <!-- BootStrap 5.0.2 -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+        <!----------------------------------
+         INTERNAL DEPENDENCIES
+        ------------------------------------>
+
+        <!-- "Hidden" Keys -->
+        <script src="js/key.js"></script>
+        <!-- Main JS -->
+        <script>
+
+            // $.ajax({
+            //     url: `https://api.openweathermap.org/data/2.5/onecall`,
+            //     type: 'GET',
+            //     data: {
+            //         lat:    29.42681,
+            //         lon:    -98.489597,
+            //         appid:  OPEN_WEATHER_API_KEY,
+            //         units: 'imperial'
+            //     }
+            // }).done(data => console.log(data));
+
+        </script>
+    </body>
+</html>
