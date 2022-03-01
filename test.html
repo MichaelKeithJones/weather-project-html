@@ -19,14 +19,14 @@
             @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
             /*-------------------------------------------*\
-            Global Variables
+                Global Variables
             \*-------------------------------------------*/
             :root {
                 --salmon: rgb(252, 154, 145);
                 --teal: rgb(1, 148, 148);
                 --body-background-color: whitesmoke;
-
                 --forecast-card-width: 175px;
+                --main-section-height: 465px;
 
                 --current-weather-font-color: black;
                 --chart-tab-font-color: var(--teal);
@@ -127,7 +127,7 @@
                 margin: 0 auto;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(4, 450px);
+                grid-template-rows: repeat(4, var(--main-section-height));
             }
             #hourly-readings {
                 grid-column: span 2;
@@ -137,10 +137,10 @@
             }
 
             /*-------------------------------------------*\
-            Main - Current Weather
+                Main - Current Weather
             \*-------------------------------------------*/
 
-            #current-weather { height: 400px; }
+            #current-weather { height: var(--main-section-height); }
             #current-weather .date-time {
                 color: var(--salmon);
                 font-size: 16px;
@@ -200,7 +200,7 @@
             }
 
             /*-------------------------------------------*\
-            Main - Map
+                Main - Map
             \*-------------------------------------------*/
             #map {
                 box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
@@ -208,7 +208,7 @@
                 0 4px 4px hsl(0deg 0% 0% / 0.075),
                 0 8px 8px hsl(0deg 0% 0% / 0.075),
                 0 16px 16px hsl(0deg 0% 0% / 0.075);
-                height: 400px;
+                height: var(--main-section-height);
             }
 
             /*-------------------------------------------*\
@@ -216,6 +216,11 @@
             \*-------------------------------------------*/
 
             #weekly-forecast { grid-column: span 2; }
+            #weekly-forecast .title{
+                font-size: 32px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid var(--teal);
+            }
             #weekly-forecast .card-container {
                 padding-top: 10px;
 
@@ -321,6 +326,12 @@
                 grid-template-rows: 1fr 1fr;
                 place-items: center;
             }
+
+            /*-------------------------------------------*\
+                Main - Hourly Forecast
+            \*-------------------------------------------*/
+
+
         </style>
 
     </head>
@@ -375,7 +386,7 @@
             <div id="map"></div>
 
             <div id="weekly-forecast">
-                <p><h2>Weekly Forecast</h2></p>
+                <div class="title"> Weekly Forecast</div>
                 <div class="card-container"></div>
             </div>
 
