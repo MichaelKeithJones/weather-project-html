@@ -123,7 +123,7 @@
                 margin: 0 auto;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(4, 500px);
+                grid-template-rows: repeat(4, 450px);
             }
             #hourly-readings {
                 grid-column: span 2;
@@ -145,6 +145,7 @@
             }
             #current-weather .container {
                 position: relative;
+                margin: 10px 0;
                 height: 100px;
             }
             #current-weather .weather-icon {
@@ -169,6 +170,7 @@
             #current-weather .clouds-description {
                 color: var(--current-weather-font-color);
                 font-size: 24px;
+                text-transform: capitalize;
             }
             #current-weather .details-section {
                 border-left: 1px solid var(--teal);
@@ -180,6 +182,9 @@
                 -webkit-columns: 2;
                 -moz-columns: 2;
                 padding: 0;
+            }
+            #current-weather li {
+                margin: 5px 0;
             }
             #current-weather .details-style {
                 font-size: 12px;
@@ -203,15 +208,15 @@
             \*-------------------------------------------*/
 
             #weekly-forecast { grid-column: span 2; }
-
             #weekly-forecast .card-container {
+                padding-top: 10px;
+
                 display: grid;
                 grid-template-columns: repeat(7, 1fr);
                 grid-gap: 10px;
             }
-
             #weekly-forecast .card {
-                width: 200px;
+                width: 185px;
                 height: 400px;
                 border: none;
                 box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
@@ -226,20 +231,89 @@
                 background: transparent;
             }
 
-            #weekly-forecast .weather-icon {
+            #weekly-forecast .day-time {
+                position: absolute;
+                top: 0;
+                left: 0;
+
+                width: 100px;
+                height: 100px;
+
+                overflow: hidden;
+            }
+            #weekly-forecast .day {
                 position: absolute;
                 top: 10px;
-                right: -50px;
+                left: 10px;
 
+                font-size: 20px;
+                width: 100%;
+
+                padding-bottom: 5px;
+                border-bottom: 1px solid var(--salmon);
+
+                color: white;
+            }
+            #weekly-forecast .time {
+                position: absolute;
+                top: 45px;
+                right: 0;
+
+                font-size: 12px;
+
+                color: white;
+            }
+            #weekly-forecast .weather-icon {
+                position: relative;
+                top: 40px;
                 width: 200px;
                 height: 200px;
+                overflow: hidden;
+            }
+            #weekly-forecast .weather-icon svg {
+                position: absolute;
+                right: -85px;
+            }
+            #weekly-forecast .high-low{
+                text-align: center;
+                color: white;
 
-                object-fit: cover;
+                width: 50%;
+                margin: 50px auto 0 auto;
+                padding-bottom: 3px;
+
+                border-bottom: 1px solid var(--salmon);
+            }
+            #weekly-forecast .high {
+                display: inline-block;
+                font-size: 32px;
+            }
+            #weekly-forecast .low {
+                color: #d2d2d2;
+                display: inline-block;
+                font-size: 16px;
+            }
+            #weekly-forecast .subscript {
+                font-size: 75%;
+            }
+            #weekly-forecast .clouds-description {
+                text-align: center;
+                text-transform: capitalize;
+                color: white;
+
+                padding-top: 5px;
+            }
+            #weekly-forecast .readings {
+                color: white;
+                font-size: 12px;
+
+                margin-top: 15px;
 
                 display: grid;
-                place-content: center;
+                grid-template-columns: repeat(3, 1fr);
+                grid-template-rows: 1fr 1fr;
+                place-items: center;
             }
-
         </style>
 
     </head>
@@ -298,7 +372,24 @@
                 <div class="card-container">
                     <div class="card">
                         <div class="card-body">
+                            <div class="day-time">
+                                <div class="day"></div>
+                                <div class="time"></div>
+                            </div>
                             <div class="weather-icon"></div>
+                            <div class="high-low">
+                                <div class="high"></div>
+                                <div class="low"></div>
+                            </div>
+                            <div class="clouds-description"></div>
+                            <div class="readings">
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M12,3.25C12,3.25 6,10 6,14C6,17.32 8.69,20 12,20A6,6 0 0,0 18,14C18,10 12,3.25 12,3.25M14.47,9.97L15.53,11.03L9.53,17.03L8.47,15.97M9.75,10A1.25,1.25 0 0,1 11,11.25A1.25,1.25 0 0,1 9.75,12.5A1.25,1.25 0 0,1 8.5,11.25A1.25,1.25 0 0,1 9.75,10M14.25,14.5A1.25,1.25 0 0,1 15.5,15.75A1.25,1.25 0 0,1 14.25,17A1.25,1.25 0 0,1 13,15.75A1.25,1.25 0 0,1 14.25,14.5Z" /></svg>
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M12,2A9,9 0 0,1 21,11H13V19A3,3 0 0,1 10,22A3,3 0 0,1 7,19V18H9V19A1,1 0 0,0 10,20A1,1 0 0,0 11,19V11H3A9,9 0 0,1 12,2Z" /></svg>
+                                <svg style="width:24px;height:24px" viewBox="0 0 24 24"><path fill="currentColor" d="M4,10A1,1 0 0,1 3,9A1,1 0 0,1 4,8H12A2,2 0 0,0 14,6A2,2 0 0,0 12,4C11.45,4 10.95,4.22 10.59,4.59C10.2,5 9.56,5 9.17,4.59C8.78,4.2 8.78,3.56 9.17,3.17C9.9,2.45 10.9,2 12,2A4,4 0 0,1 16,6A4,4 0 0,1 12,10H4M19,12A1,1 0 0,0 20,11A1,1 0 0,0 19,10C18.72,10 18.47,10.11 18.29,10.29C17.9,10.68 17.27,10.68 16.88,10.29C16.5,9.9 16.5,9.27 16.88,8.88C17.42,8.34 18.17,8 19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14H5A1,1 0 0,1 4,13A1,1 0 0,1 5,12H19M18,18H4A1,1 0 0,1 3,17A1,1 0 0,1 4,16H18A3,3 0 0,1 21,19A3,3 0 0,1 18,22C17.17,22 16.42,21.66 15.88,21.12C15.5,20.73 15.5,20.1 15.88,19.71C16.27,19.32 16.9,19.32 17.29,19.71C17.47,19.89 17.72,20 18,20A1,1 0 0,0 19,19A1,1 0 0,0 18,18Z" /></svg>
+                                <div class="precipitation"></div>
+                                <div class="humidity"></div>
+                                <div class="wind-speed"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -376,8 +467,8 @@
                     }
                 }).done(data => {
                     const DEGREE = '\u00B0';
-                    const capitalizeFirstLetter = string => string.replace(/^./, string[0].toUpperCase());
                     const getDateTime = (dt, timezone) => new Date(dt*1000+(timezone*1000));
+                    const formatDay = date => date.toLocaleString('en-us', { weekday: 'long'});
                     const formatDate = date => date.toLocaleString('en-us', { month: 'short', day: 'numeric'});
                     const formatTime = time => time.toLocaleString('en-us', { timeStyle: 'short', timeZone: 'US/Central'});
 
@@ -395,12 +486,12 @@
                             currentWeather.find('.city-country').text(`${address[1]}, ${address[3]}`);
                         });
                     currentWeather.find('.weather-icon').html(`
-                        <svg fill="rgb(252, 154, 145)" width="75" height="75" viewBox="0 0 25 25">
+                        <svg fill="rgb(252, 154, 145)" width="75" height="75" viewBox="0 0 24 24">
                             ${svgList[`${data.current.weather[0].description}`]}
                         </svg>`);
                     currentWeather.find('.current-temp').text(`${data.current.temp.toPrecision(2)}${DEGREE}F`);
                     currentWeather.find('.feels-like').text(`${data.current.feels_like.toPrecision(2)}${DEGREE}F`);
-                    currentWeather.find('.clouds-description').text(`${capitalizeFirstLetter(data.current.weather[0].description)}`);
+                    currentWeather.find('.clouds-description').text(`${data.current.weather[0].description}`);
                     currentWeather.find('.wind-speed').text(`Wind: ${data.current.wind_speed} mph`);
                     currentWeather.find('.humidity').text(`Humidity: ${data.current.humidity} %`);
                     currentWeather.find('.visibility').text(`Visibility: ${(data.current.visibility/1000).toFixed(1)} km`);
@@ -410,12 +501,20 @@
 
                     console.log(data);
 
-                    let weekly = $('#weekly-forecast');
-                    weekly.find('.weather-icon').html(`
-                        <svg fill="red" width="200" height="200" viewBox="0 0 25 25">
+                    let day = formatDay(getDateTime(data.current.dt, data.timezone_offset));
+                    let weeklyWeather = $('#weekly-forecast');
+                    weeklyWeather.find('.day').text(`${day}`);
+                    weeklyWeather.find('.time').text(`${time}`);
+                    weeklyWeather.find('.weather-icon').html(`
+                        <svg fill="white" width="200" height="200" viewBox="0 0 24 24">
                             ${svgList[`${data.current.weather[0].description}`]}
                         </svg>`);
-
+                    weeklyWeather.find('.high').html(`${data.current.temp.toPrecision(2)}${DEGREE}`);
+                    weeklyWeather.find('.low').html(`/ ${data.current.temp.toPrecision(2)}${DEGREE}`);
+                    weeklyWeather.find('.clouds-description').text(`${data.current.weather[0].description}`);
+                    weeklyWeather.find('.precipitation').text(`0%`);
+                    weeklyWeather.find('.humidity').text(`${data.current.humidity}%`);
+                    weeklyWeather.find('.wind-speed').text(`${data.current.wind_speed}`);
                 });
             }
 
