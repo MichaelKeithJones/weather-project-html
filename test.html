@@ -1,9 +1,13 @@
 <!doctype html>
 <html>
     <head>
+        <!-- Purpose: Declares the character set and character encoding method -->
         <meta charset="utf-8"/>
+        <!-- Purpose: Establishes the viewport by setting the viewable area to the device width and initial zoom to 1 -->
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+
         <title>Weather Map Project</title>
+        <!-- Purpose: Sets the browser tab icon to a local image -->
         <link rel="icon" type="image/x-icon" href="./img/rainy-day.png" />
 
         <!-- Loading: Font Awesome 4.7.0 -->
@@ -16,9 +20,7 @@
 
         <style>
 
-            @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
             @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-            @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
             /*-------------------------------------------*\
                 Global Variables
@@ -41,9 +43,7 @@
             }
             body {
                 background: var(--body-background-color);
-                /*font-family:'Roboto', sans-serif;*/
                 font-family: 'Montserrat', sans-serif;
-                /*font-family: 'Poppins', sans-serif;*/
                 font-weight: 400;
             }
 
@@ -350,6 +350,11 @@
                 padding-bottom: 5px;
                 border-bottom: 1px solid var(--teal);
             }
+            #hourly-readings .chart-container {
+                width: 90%;
+                height: 75%;
+                margin: 50px auto;
+            }
 
             /*-------------------------------------------*\
                 Main - Top Stories
@@ -524,6 +529,9 @@
 
             <div id="hourly-readings">
                 <div class="title">Hourly Readings</div>
+                <div class="chart-container">
+                    <canvas id="hourly-chart"></canvas>
+                </div>
             </div><!-- #hourly-readings -->
 
             <div id="top-stories">
@@ -560,6 +568,8 @@
         <!-- MapBox API -->
         <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+        <!-- Chart.js -->
+        <script src="js/chart.js"></script>
 
         <!----------------------------------
          INTERNAL DEPENDENCIES
@@ -586,6 +596,48 @@
                 zoom:   STARTING_MAPBOX_ZOOM
             });
             let marker = new mapboxgl.Marker({ draggable: true }).setLngLat(STARTING_MAPBOX_COORD).addTo(map);
+
+            let chartGridColor = '#6c757d';
+            let chart = new Chart($('#hourly-chart'), {type: 'line', options: {
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: chartGridColor
+                            }
+                        }
+                    },
+                    maintainAspectRatio: false,
+                    animation: false,
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: "Time"
+                            },
+                            grid: {display: false},
+                            ticks: {color: chartGridColor}
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: "Fahrenheit"
+                            },
+                            grid: {display: false},
+                            beginAtZero: true,
+                            max: 90,
+                            min: 0,
+                            ticks: {
+                                color: chartGridColor,
+                                stepSize: 10
+                            }
+                        }
+                    }
+                }});
 
             /*----------------------------------
             OPEN WEATHER API LOGIC
@@ -734,6 +786,51 @@
                         `);
                         }
                     });
+
+                    //--| Hourly Weather Readings |--------------------//
+                    const forecasts = data.hourly;
+                    const setTime = dt => getDateTime(dt, data.timezone_offset).toLocaleString('en-us', { hour: '2-digit', timeZone: 'US/Central'});
+
+                    let daytime = [];
+                    let feelsLike = [];
+                    let temperature = [];
+                    let dewPoint = [];
+
+                    forecasts.forEach(forecast => {
+                        daytime.push(setTime(forecast.dt));
+                        temperature.push(forecast.temp);
+                        feelsLike.push(forecast.feels_like);
+                        dewPoint.push(forecast.dew_point);
+                    });
+
+                    chart.data.labels = daytime;
+                    chart.data.datasets = [
+                        {
+                            label: 'Dew Point',
+                            data: dewPoint,
+                            backgroundColor: 'rgb(250, 139, 129, 0.25)',
+                            borderColor: 'rgb(250, 139, 129, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        },
+                        {
+                            label: 'Feel Like',
+                            data: feelsLike,
+                            backgroundColor: 'rgba(144,241,239, 0.25)',
+                            borderColor: 'rgb(144,241,239)',
+                            borderWidth: 1,
+                            fill: true
+                        },
+                        {
+                            label: 'Temperature',
+                            data: temperature,
+                            backgroundColor: 'rgba(0, 128, 128, 0.25)',
+                            borderColor: 'rgba(0, 128, 128, 1)',
+                            borderWidth: 1,
+                            fill: true
+                        }
+                    ];
+                    chart.update();
                 });
             }
 
@@ -749,9 +846,7 @@
                 fetch(new Request(url))
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data.articles);
                         let articles = data.articles.slice(0, 8);
-                        console.log(articles);
                         $('#top-stories').find('.card-container').html("");
                         articles.forEach(article => {
                             $('#top-stories').find('.card-container').append(`
