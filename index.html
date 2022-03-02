@@ -1,24 +1,18 @@
 <!doctype html>
 <html>
-    <head lang="en-US">
+    <head>
         <!-- Purpose: Declares the character set and character encoding method -->
-        <meta charset="utf-8" />
+        <meta charset="utf-8"/>
         <!-- Purpose: Establishes the viewport by setting the viewable area to the device width and initial zoom to 1 -->
-        <meta name="=viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
 
         <title>Weather Map Project</title>
         <!-- Purpose: Sets the browser tab icon to a local image -->
         <link rel="icon" type="image/x-icon" href="./img/rainy-day.png" />
 
-        <!----------------------------------
-         EXTERNAL LINKS
-        ------------------------------------>
-
         <!-- Loading: Font Awesome 4.7.0 -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-        <!-- Loading: Bootstrap CSS Framework 5.0.2 -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-        <!-- Loading: Mapbox GL API 2.6.1 -->
+       <!-- Loading: Mapbox GL API 2.6.1 -->
         <link href="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css" rel="stylesheet" />
         <!-- Loading: Mapbox GL Geocoder 4.7.2 -->
         <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.css" type="text/css" />
@@ -26,257 +20,115 @@
         <!----------------------------------
         INTERNAL LINKS
         ------------------------------------>
-
         <link rel="stylesheet" href="css/style.css" />
+
     </head>
     <body>
 
-    <!----------------------------------
-     HEADER
-    ------------------------------------>
-    <header id="header" class="section-spacing px-5">
-        <nav class="navbar navbar-dark py-4">
-            <a class="navbar-brand" href="#">
-                <span id="title">Weather</span><!-- #title -->
-                <span id="subtitle">PRO</span><!-- #subtitle -->
-            </a>
-
-            <div class="col-12 col-md-6">
-                <div class="input-group">
-                    <span class="input-group-text text-light bg-secondary">City</span>
-                    <input id="header-search-bar" class="form-control" type="search" placeholder="Name" />
-                    <input id="header-search-btn" class="btn btn-secondary" type="button" value="Search" />
-                    <button id="dark-mode" type="button" class="btn btn-secondary"><i class="fa fa-adjust" aria-hidden="true"></i></button>
-                </div>
-            </div>
-        </nav>
-    </header><!-- #header -->
-
-    <!----------------------------------
-     MAIN
-    ------------------------------------>
-    <main class='container'>
-
-        <!-- Current Weather and Map -->
-        <!-- Purpose: Displays the current weather conditions and city map -->
-        <div class="row row-cols-1 row-cols-md-2 section-spacing">
-            <div id="current-weather" class="col">
-                <h6 id='date-time'></h6>
-                <h1 id="city-country"></h1>
-                <div id="container">
-                    <img id="weather-icon"/>
-                    <div id="current-temp"></div>
-                    <div id="feels-like"></div>
-                </div>
-                <div id="clouds-description"></div>
-                <div id="details-section">
-                    <ul>
-                        <li id="wind-speed" class="details-style">Wind: </li>
-                        <li id="humidity" class="details-style">Humidity: </li>
-                        <li id="visibility" class="details-style">Visibility: </li>
-                        <li id="pressure" class="details-style">Pressure: </li>
-                        <li id="sunrise" class="details-style">Sunrise: </li>
-                        <li id="sunset" class="details-style">Sunset: </li>
-                    </ul>
-                </div>
-            </div>
-            <div id="map" class="col"></div>
-        </div>
-
-        <!-- 5 Day Forecast -->
-        <!-- Purpose: Displays the 5 day forecast for whatever city is submitted -->
-        <p><h2>5 Day Forecast</h2></p>
-        <div id="five-day-forecast" class="row row-cols-2 row-cols-md-3 row-cols-lg-5 d-flex justify-content-center text-center py-4 section-spacing">
-            <div class="col">
-                <div class="card shadow forecast">
-                    <div class="card-header text-white card-bg-color">
-                        <h4 class="my-0 fw-normal"></h4>
-                    </div>
-                    <div class="card-body">
-                        <img/><br>
-                        <h1 class="card-title d-inline-block"></h1>
-                        <small class="text-muted fw-light"></small>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- d-none d-md-block: Hidden on screens smaller than medium -->
-            <div class="col d-none d-md-block">
-                <div class="card shadow forecast">
-                    <div class="card-header text-white card-bg-color">
-                        <h4 class="my-0 fw-normal"></h4>
-                    </div>
-                    <div class="card-body">
-                        <img/><br>
-                        <h1 class="card-title d-inline-block"></h1>
-                        <small class="text-muted fw-light"></small>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- d-none d-md-block: Hidden on screens smaller than medium -->
-            <div class="col d-none d-md-block">
-                <div class="card shadow forecast">
-                    <div class="card-header text-white card-bg-color">
-                        <h4 class="my-0 fw-normal"></h4>
-                    </div>
-                    <div class="card-body">
-                        <img/><br>
-                        <h1 class="card-title d-inline-block"></h1>
-                        <small class="text-muted fw-light"></small>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- d-none d-lg-block: Hidden on screens smaller than large -->
-            <div class="col d-none d-lg-block">
-                <div class="card shadow forecast">
-                    <div class="card-header text-white card-bg-color">
-                        <h4 class="my-0 fw-normal"></h4>
-                    </div>
-                    <div class="card-body">
-                        <img/><br>
-                        <h1 class="card-title d-inline-block"></h1>
-                        <small class="text-muted fw-light"></small>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- d-none d-lg-block: Hidden on screens smaller than large -->
-            <div class="col d-none d-lg-block">
-                <div class="card shadow forecast">
-                    <div class="card-header text-white card-bg-color">
-                        <h4 class="my-0 fw-normal"></h4>
-                    </div>
-                    <div class="card-body">
-                        <img/><br>
-                        <h1 class="card-title d-inline-block"></h1>
-                        <small class="text-muted fw-light"></small>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 5 Day Readings Charts for Humidity, Pressure and Wind -->
-        <!-- Purpose: Displays the he 5 day readings for humidity, pressure and win speeds -->
-        <p><h2>5 Day Readings</h2></p>
-        <div class="row section-spacing">
-            <nav>
-                <div class="nav nav-pills mb-3" id="nav-tab" role="tablist">
-                    <button class="btn-style active" id="nav-humidity-tab" data-bs-toggle="tab" data-bs-target="#nav-humidity" type="button" role="tab">Humidity</button>
-                    <button class="btn-style" id="nav-pressure-tab" data-bs-toggle="tab" data-bs-target="#nav-pressure" type="button" role="tab">Pressure</button>
-                    <button class="btn-style" id="nav-wind-tab" data-bs-toggle="tab" data-bs-target="#nav-wind" type="button" role="tab">Wind</button>
+        <!----------------------------------
+         HEADER
+        ------------------------------------>
+        <header id="header" class="section-spacing">
+            <nav id="navbar">
+                <a class="brand" href="/" >
+                    <span class="title text-shadow ">Weather</span>
+                    <span class="subtitle text-shadow ">PRO</span>
+                </a>
+                <div>
+                    <div                            class="searchbar-label dark-background">City</div>
+                    <input  id="searchbar"          class="searchbar" type="text" placeholder="Name" onfocus="this.value=''"><!-- #searchbar -->
+                    <div    id="dark-mode-button"   class="searchbar-button dark-mode-button dark-background"><i class="fa fa-adjust"></i></div><!-- #dark-mode-button -->
+                    <div    id="search-button"      class="searchbar-button dark-background">Search</div><!-- #searchbar-button -->
                 </div>
             </nav>
+        </header><!-- #header -->
 
-            <div class="tab-content d-flex justify-content-center" id="nav-tabContent">
-                <div class="charts tab-pane fade show active" id="nav-humidity" role="tabpanel">
-                    <canvas id="humidity-chart"></canvas>
-                </div>
-                <div class="charts tab-pane fade" id="nav-pressure" role="tabpanel">
-                    <canvas id="pressure-chart"></canvas>
-                </div>
-                <div class="charts tab-pane fade" id="nav-wind" role="tabpanel">
-                    <canvas id="wind-chart"></canvas>
-                </div>
-            </div>
-        </div>
+        <!----------------------------------
+         MAIN
+        ------------------------------------>
+        <main id="main">
 
-        <!-- Weather News API Links -->
-        <!-- Purpose: Displays Top-Current weather related news stories -->
-        <h2>Latest News</h2>
-        <div class="row row-cols-2 row-cols-md-2 row-cols-lg-3 d-flex justify-content-center mt-4 section-spacing">
-            <div class="col">
-                <div class="card news-card mb-4">
-<!--                    <div class="card-head">-->
-                    <img class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
-                        <small class="text-muted"></small>
-                        <a target="_blank" class="stretched-link"></a>
+            <div class="weather-map">
+                <div id="current-weather">
+                    <div class="date-time"></div>
+                    <div class="city-country"></div>
+                    <div class="container">
+                        <div class="weather-icon"></div>
+                        <div class="current-temp"></div>
+                        <div class="feels-like"></div>
                     </div>
-                </div>
-            </div>
-
-            <!-- d-none d-md-block: Hidden on screens smaller than medium -->
-            <div class="col d-none d-md-block">
-                <div  class="card news-card mb-4">
-                    <img class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
-                        <small class="text-muted"></small>
-                        <a target="_blank" class="stretched-link"></a>
+                    <div class="clouds-description"></div>
+                    <div class="details-section">
+                        <ul>
+                            <li class="details-style wind-speed">Wind: </li>
+                            <li class="details-style humidity">Humidity: </li>
+                            <li class="details-style visibility">Visibility: </li>
+                            <li class="details-style pressure">Pressure: </li>
+                            <li class="details-style sunrise">Sunrise: </li>
+                            <li class="details-style sunset">Sunset: </li>
+                        </ul>
                     </div>
-                </div>
+                </div><!-- #current-weather -->
+
+                <div id="map" class="box-shadow"></div><!-- #map -->
             </div>
 
-            <!-- d-none d-md-block: Hidden on screens smaller than medium -->
-            <div class="col d-none d-md-block">
-                <div class="card news-card mb-4">
-                    <img class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title"></h5>
-                        <p class="card-text"></p>
-                        <small class="text-muted"></small>
-                        <a target="_blank" class="stretched-link"></a>
-                    </div>
+            <div id="daily-forecast">
+                <div class="title">Daily Forecast</div>
+                <div class="card-container"></div>
+            </div><!-- #daily-forecast -->
+
+            <div id="hourly-readings">
+                <div class="title">Hourly Readings</div>
+                <div class="chart-container">
+                    <canvas id="hourly-chart"></canvas>
                 </div>
-            </div>
-        </div>
+            </div><!-- #hourly-readings -->
 
-    </main>
+            <div id="top-stories">
+                <div class="title">Top Stories</div>
+                <div class="card-container"></div>
+            </div><!-- #top-stories -->
+        </main><!-- #main -->
 
-    <!----------------------------------
-     FOOTER
-    ------------------------------------>
-    <footer id="footer" class="text-light py-5">
-        <div class="container">
-            <p class="float-end mb-1">
-                <a href="#">Back to top</a>
-            </p>
-            <div class="col-6 col-md">
-                <h5 class="pb-2">About</h5>
-                <ul class="list-unstyled text-small pt-2">
+        <!----------------------------------
+         FOOTER
+        ------------------------------------>
+        <footer id="footer" class="">
+            <div class="about-link">
+                <div class="title">About</div>
+                <ul class="">
                     <li class="mb-1"><a href="#">Team</a></li>
                     <li class="mb-1"><a href="#">Locations</a></li>
                     <li class="mb-1"><a href="#">Privacy</a></li>
                     <li class="mb-1"><a href="#">Terms</a></li>
                 </ul>
+                <small class="copyright">&copy; 2017–2021</small>
             </div>
-            <div class="col-12 col-md">
-                <small class="d-block mb-3">&copy; 2017–2021</small>
-            </div>
-        </div>
-    </footer><!-- #footer -->
+            <p class="top-link">
+                <a href="#">Back to top</a>
+            </p>
+        </footer><!-- #footer -->
 
-    <!----------------------------------
-     EXTERNAL DEPENDENCIES
-    ------------------------------------>
+        <!----------------------------------
+         EXTERNAL DEPENDENCIES
+        ------------------------------------>
 
-    <!-- jQuery -->
-    <script src="js/jquery-2.2.4.js"></script>
-    <!-- MapBox API -->
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
-    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
-    <!-- BootStrap 5.0.2 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!-- Chart.js -->
-    <script src="js/chart.js"></script>
+        <!-- jQuery -->
+        <script src="js/jquery-2.2.4.js"></script>
+        <!-- MapBox API -->
+        <script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+        <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.2/mapbox-gl-geocoder.min.js"></script>
+        <!-- Chart.js -->
+        <script src="js/chart.js"></script>
 
-    <!----------------------------------
-     INTERNAL DEPENDENCIES
-    ------------------------------------>
+        <!----------------------------------
+         INTERNAL DEPENDENCIES
+        ------------------------------------>
 
-    <!-- "Hidden" Keys -->
-    <script src="js/key.js"></script>
-    <!-- Main JS file -->
-    <script src="js/main.js"></script>
+        <!-- "Hidden" Keys -->
+        <script src="js/key.js"></script>
+        <!-- Main JS file -->
+        <script src="js/main.js"></script>
     </body>
 </html>

@@ -1,0 +1,178 @@
+/*
+/*-------------------------------------------*\
+LAYOUT:
+/*-------------------------------------------*\
+Project Root
+└── styles
+    ├── variables
+    ├── general
+    ├── header
+    ├── main
+    └── footer
+*/
+
+/*-------------------------------------------*\
+    Global Variables
+\*-------------------------------------------*/
+:root {
+    --salmon: rgb(252, 154, 145);
+    --teal: rgb(1, 148, 148);
+    --body-background-color: white;
+    --current-weather-font-color: black;
+    --chart-tab-font-color: var(--teal);
+    --muted: #6c757d;
+}
+
+body { background: var(--body-background-color); }
+
+/*-------------------------------------------*\
+    General Styling
+\*-------------------------------------------*/
+h1, h2, h3, h4, h5, h6 { margin: 0;}
+h2 {
+    color: var(--current-weather-font-color);
+    border-bottom: 1px solid teal;
+    padding-bottom: 10px;
+}
+.section-spacing { margin: 0 0 50px 0; }
+
+/*-------------------------------------------*\
+    Header
+\*-------------------------------------------*/
+#header {
+    background-image: url("../img/sky-unsplash.png");
+    background-size: cover;
+}
+#title {
+    font-size: 3rem;
+    font-weight: 300;
+    line-height: 1.2;
+    border-right: 3px solid var(--salmon);
+    padding-right: 5px;
+}
+#subtitle {
+    font-size: 0.85rem;
+    /*color: rgb(0, 128, 128);*/
+    color: var(--teal);
+}
+.form-control:focus {
+    box-shadow: none;
+    border: 1px solid lightgrey;
+}
+
+/*-------------------------------------------*\
+    Main - Current Weather and Map
+\*-------------------------------------------*/
+#current-weather #date-time { color: var(--salmon); }
+#current-weather #city-country {
+    border-bottom: 1px solid var(--teal);
+    width: 300px;
+    color: var(--current-weather-font-color);
+}
+#current-weather #container {
+    position: relative;
+}
+#current-weather #current-temp {
+    padding-left: 96px;
+    font-size: 5rem;
+    display: inline-block;
+    color: var(--current-weather-font-color);
+}
+#current-weather #feels-like {
+    color: var(--muted);
+    font-size: 1.5rem;
+    display: inline-block;
+}
+#current-weather #weather-icon {
+    top: 10px;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+#current-weather #clouds-description {
+    color: var(--current-weather-font-color);
+    font-size: 24px;
+}
+#current-weather #details-section {
+    border-left: 1px solid var(--teal);
+    padding-left: 20px;
+}
+#current-weather ul {
+    list-style: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    padding: 0;
+}
+#current-weather .details-style {
+    font-size: 12px;
+    color: var(--current-weather-font-color);
+}
+#map {
+    box-shadow: var(--salmon) 0px 5px 15px;
+    height: 400px;
+}
+
+/*-------------------------------------------*\
+    Main - 5 Day Forecast
+\*-------------------------------------------*/
+#five-day-forecast { background: var(--salmon) }
+#five-day-forecast .card-bg-color { background: var(--teal); }
+#five-day-forecast img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+}
+
+/*-------------------------------------------*\
+    Main - 5 Day Readings Charts for Humidity, Pressure and Wind
+\*-------------------------------------------*/
+#nav-tab .btn-style {
+    color: var(--chart-tab-font-color);
+    background: transparent;
+    border: none;
+    border-radius: 4px;
+}
+#nav-tab .btn-style:hover {
+    color: white;
+    background: rgba(0, 128, 128, 1);
+    border-radius: 4px;
+}
+#nav-tabContent .charts {
+    width: 50%;
+    height: 50%;
+}
+
+/*-------------------------------------------*\
+    Main - Weather News API Links
+\*-------------------------------------------*/
+.news-card {
+    box-shadow: var(--teal) 0px 5px 15px;
+    transition: transform 0.25s linear;
+}
+.news-card:hover { transform: perspective(500px) translate3d(0, 0, 15px); }
+.news-card img {
+    height: 225px;
+    width: auto;
+    display: block;
+    object-fit: cover;
+}
+.news-card a { text-decoration: none; }
+
+/*-------------------------------------------*\
+    Main - Footer
+\*-------------------------------------------*/
+#footer { background: var(--teal) }
+#footer h5 {
+    border-bottom: 3px solid white;
+    font-size: 32px;
+    width: 100px;
+}
+#footer a {
+    text-decoration: none;
+    color: var(--salmon);
+}
+#footer a:hover {
+    color: white;
+}
