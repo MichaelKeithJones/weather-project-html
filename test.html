@@ -17,12 +17,14 @@
         <style>
 
             @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+            @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+            @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
             /*-------------------------------------------*\
                 Global Variables
             \*-------------------------------------------*/
             :root {
-                --salmon: rgb(252, 154, 145);
+                --salmon: rgb(250, 139, 129);
                 --teal: rgb(1, 148, 148);
                 --body-background-color: whitesmoke;
                 --forecast-card-width: 175px;
@@ -39,7 +41,9 @@
             }
             body {
                 background: var(--body-background-color);
-                font-family:'Roboto', sans-serif;
+                /*font-family:'Roboto', sans-serif;*/
+                font-family: 'Montserrat', sans-serif;
+                /*font-family: 'Poppins', sans-serif;*/
                 font-weight: 400;
             }
 
@@ -53,6 +57,27 @@
                 padding-bottom: 10px;
             }
             .section-spacing { margin: 0 0 50px 0; }
+            .text-shadow {
+                text-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+                0 2px 2px hsl(0deg 0% 0% / 0.075),
+                0 4px 4px hsl(0deg 0% 0% / 0.075),
+                0 8px 8px hsl(0deg 0% 0% / 0.075),
+                0 16px 16px hsl(0deg 0% 0% / 0.075);
+            }
+            .box-shadow {
+                box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
+                0 2px 2px hsl(0deg 0% 0% / 0.075),
+                0 4px 4px hsl(0deg 0% 0% / 0.075),
+                0 8px 8px hsl(0deg 0% 0% / 0.075),
+                0 16px 16px hsl(0deg 0% 0% / 0.075);
+            }
+            .drop-shadow {
+                filter: drop-shadow(0 1px 1px hsl(0deg 0% 0% / 0.075))
+                        drop-shadow(0 2px 2px hsl(0deg 0% 0% / 0.075))
+                        drop-shadow(0 4px 4px hsl(0deg 0% 0% / 0.075))
+                        drop-shadow(0 8px 8px hsl(0deg 0% 0% / 0.075))
+                        drop-shadow(0 16px 16px hsl(0deg 0% 0% / 0.075));
+            }
 
             /*-------------------------------------------*\
                 Header
@@ -89,6 +114,7 @@
                 padding-left: 6px;
             }
             #navbar .dark-background {
+                height: 33px;
                 color: white;
                 background: #6c757d;
                 padding: 6px 12px;
@@ -127,7 +153,7 @@
                 margin: 0 auto;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: repeat(4, var(--main-section-height));
+                grid-template-rows: var(--main-section-height) var(--main-section-height) var(--main-section-height) 900px;
             }
             #hourly-readings {
                 grid-column: span 2;
@@ -203,11 +229,6 @@
                 Main - Map
             \*-------------------------------------------*/
             #map {
-                box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.075),
-                0 2px 2px hsl(0deg 0% 0% / 0.075),
-                0 4px 4px hsl(0deg 0% 0% / 0.075),
-                0 8px 8px hsl(0deg 0% 0% / 0.075),
-                0 16px 16px hsl(0deg 0% 0% / 0.075);
                 height: var(--main-section-height);
             }
 
@@ -248,7 +269,7 @@
                 top: 0;
                 left: 0;
 
-                width: 100px;
+                width: 130px;
                 height: 100px;
 
                 overflow: hidden;
@@ -263,15 +284,6 @@
 
                 padding-bottom: 5px;
                 border-bottom: 1px solid var(--salmon);
-
-                color: white;
-            }
-            #weekly-forecast .time {
-                position: absolute;
-                top: 45px;
-                right: 0;
-
-                font-size: 12px;
 
                 color: white;
             }
@@ -328,9 +340,109 @@
             }
 
             /*-------------------------------------------*\
-                Main - Hourly Forecast
+                Main - Hourly Readings
             \*-------------------------------------------*/
 
+            #hourly-readings { grid-column: span 2; }
+            #hourly-readings .title{
+                font-size: 32px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid var(--teal);
+            }
+
+            /*-------------------------------------------*\
+                Main - Top Stories
+            \*-------------------------------------------*/
+
+            #top-stories { grid-column: span 2; }
+            #top-stories .title{
+                font-size: 32px;
+                padding-bottom: 5px;
+                border-bottom: 1px solid var(--teal);
+            }
+
+            #top-stories .card-container {
+                padding-top: 10px;
+
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: repeat(2, 1fr);
+                grid-gap: 10px;
+                place-items: center;
+            }
+            #top-stories .card {
+                position: relative;
+
+                width: 300px;
+                height: 350px;
+                border: none;
+            }
+
+            #top-stories img {
+                height: 225px;
+                width: 100%;
+                object-fit: cover;
+                display: block;
+            }
+
+            #top-stories .card-body {
+                height: calc(100% - 225px);
+                width: 100%;
+                background: white;
+                padding: 5px 10px;
+
+                display: grid;
+                grid-template-columns: repeat(2, 50%);
+                grid-template-rows: 25px 1fr 25px;
+                justify-content: space-between;
+            }
+
+            #top-stories .card-source {
+                grid-column: span 2;
+                color: black;
+                font-size: 16px;
+            }
+
+            #top-stories .card-description {
+                grid-column: span 2;
+                color: black;
+                font-size: 10px;
+                padding: 0 10px;
+                border-left: 1px solid var(--teal);
+            }
+
+            #top-stories .card-runner {
+                text-align: left;
+                align-self: end;
+                color: var(--salmon);
+                font-size: 12px;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+
+            #top-stories .arrow {
+                text-align: right;
+                align-self: end;
+                color: var(--salmon);
+                font-size: 12px;
+            }
+
+            /*-------------------------------------------*\
+                Main - Footer
+            \*-------------------------------------------*/
+            #footer { background: var(--teal) }
+            #footer h5 {
+                border-bottom: 3px solid white;
+                font-size: 32px;
+                width: 100px;
+            }
+            #footer a {
+                text-decoration: none;
+                color: var(--salmon);
+            }
+            #footer a:hover {
+                color: white;
+            }
 
         </style>
 
@@ -344,8 +456,8 @@
         <header id="header" class="section-spacing">
             <nav id="navbar">
                 <a class="brand" href="/" >
-                    <span class="title">Weather</span>
-                    <span class="subtitle">PRO</span>
+                    <span class="title text-shadow ">Weather</span>
+                    <span class="subtitle text-shadow ">PRO</span>
                 </a>
                 <div>
                     <div                            class="searchbar-label dark-background">City</div>
@@ -381,19 +493,47 @@
                         <li class="details-style sunset">Sunset: </li>
                     </ul>
                 </div>
-            </div>
+            </div><!-- #current-weather -->
 
-            <div id="map"></div>
+            <div id="map" class="box-shadow"></div><!-- #map -->
 
             <div id="weekly-forecast">
-                <div class="title"> Weekly Forecast</div>
+                <div class="title">Weekly Forecast</div>
                 <div class="card-container"></div>
+            </div><!-- #weekly-forecast -->
+
+            <div id="hourly-readings">
+                <div class="title">Hourly Readings</div>
+            </div><!-- #hourly-readings -->
+
+            <div id="top-stories">
+                <div class="title">Top Stories</div>
+                <div class="card-container"></div>
+            </div><!-- #top-stories -->
+        </main><!-- #main -->
+
+        <!----------------------------------
+         FOOTER
+        ------------------------------------>
+        <footer id="footer" class="">
+            <div class="">
+                <p class="">
+                    <a href="#">Back to top</a>
+                </p>
+                <div class="">
+                    <h5 class="">About</h5>
+                    <ul class="">
+                        <li class="mb-1"><a href="#">Team</a></li>
+                        <li class="mb-1"><a href="#">Locations</a></li>
+                        <li class="mb-1"><a href="#">Privacy</a></li>
+                        <li class="mb-1"><a href="#">Terms</a></li>
+                    </ul>
+                </div>
+                <div class="">
+                    <small class="">&copy; 2017–2021</small>
+                </div>
             </div>
-
-            <div id="hourly-readings"></div>
-
-            <div id="top-stories"></div>
-        </main>
+        </footer><!-- #footer -->
 
         <!----------------------------------
          EXTERNAL DEPENDENCIES
@@ -418,8 +558,6 @@
             CONSTANTS VARIABLES
             ----------------------------------*/
 
-            // const STARTING_MAPBOX_COORD = [-98.489597, 29.42681];
-
             const STARTING_MAPBOX_STYLE = 'mapbox://styles/mapbox/streets-v9'       // Starting mapbox map style - Street v9
             const STARTING_MAPBOX_COORD = [-98.489597, 29.42681];                   // Starting position: 600 Navarro St #600, San Antonio, TX 78205
             const STARTING_MAPBOX_ZOOM = 15;                                        // Starting zoom
@@ -432,7 +570,6 @@
                 zoom:   STARTING_MAPBOX_ZOOM
             });
             let marker = new mapboxgl.Marker({ draggable: true }).setLngLat(STARTING_MAPBOX_COORD).addTo(map);
-
 
             /*----------------------------------
             OPEN WEATHER API LOGIC
@@ -551,6 +688,7 @@
                     currentWeather.find('.sunset').text(`Sunset: ${sunset}`);
 
                     //--| Daily Weather Forecast |--------------------//
+                    $('#weekly-forecast').find('.card-container').html("");
                     data.daily.forEach((weekday, index) => {
                         if (index !== 0) {
                             let day = formatDay(getDateTime(weekday.dt, data.timezone_offset));
@@ -559,10 +697,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="day-time">
-                                        <div class="day">${day}</div>
-                                        <div class="time">${t}</div>
+                                        <div class="day text-shadow">${day}</div>
                                     </div>
-                                    <div class="weather-icon">${buildSVG("white", 200, 200, svgList[`${weekday.weather[0].description}`])}</div>
+                                    <div class="weather-icon drop-shadow">${buildSVG("white", 200, 200, svgList[`${weekday.weather[0].description}`])}</div>
                                     <div class="high-low">
                                         <div class="high">${weekday.temp.max.toPrecision(2)}${DEGREE}</div>
                                         <div class="low">/ ${weekday.temp.min.toPrecision(2)}${DEGREE}</div>
@@ -589,18 +726,30 @@
             ----------------------------------*/
             //--| Purpose: Fills the 5 news cards with current weather related news stories. |--//
             function getNews() {
-                let createUrl = (search, date, sortBy, key) => { return `https://newsapi.org/v2/everything?q=${search}&from=${date}&sortBy=${sortBy}&apiKey=${key}`; }
-                let url = createUrl('Weather', '2022-02-02', 'relevancy', NEWS_API_KEY);
+                const getDateTime = (dt, timezone) => new Date(dt*1000+(timezone*1000));
+                const formatDate = date => date.toLocaleString('en-us', { month: 'short', day: 'numeric'});
+                const createUrl = (search, date, sortBy, key) => { return `https://newsapi.org/v2/everything?q=${search}&from=${date}&sortBy=${sortBy}&apiKey=${key}`; }
+                const url = createUrl('Weather', '2022-03-01', 'relevancy', NEWS_API_KEY);
                 fetch(new Request(url))
                     .then(res => res.json())
                     .then(data => {
-                        let articles = data.articles;
-                        $('.news-card').each(function(index){
-                            $(this).find('img').attr('src', `${articles[index].urlToImage}`);
-                            $(this).find('h5').html(`${articles[index].source.name}`);
-                            $(this).find('p').html(`${articles[index].title}`);
-                            $(this).find('small').html(`${formatDate(new Date(articles[index].publishedAt.slice(0, -1)))}`);
-                            $(this).find('a').attr('href', `${articles[index].url}`);
+                        console.log(data.articles);
+                        let articles = data.articles.slice(0, 8);
+                        console.log(articles);
+                        $('#top-stories').find('.card-container').html("");
+                        articles.forEach(article => {
+                            $('#top-stories').find('.card-container').append(`
+                                <a target="_blank" class="card-runner" href="${article.url}">
+                                    <div class="card box-shadow">
+                                        <img src="${article.urlToImage}">
+                                        <div class="card-body">
+                                            <div class="card-source">${article.source.name}</div>
+                                            <div class="card-description">${article.title}</div>
+                                            <div class="card-runner">Read More</div><div class="arrow">&gt</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `);
                         });
                     });
             }
@@ -608,7 +757,6 @@
             /*----------------------------------
             GLOBAL FUNCTION CALLS
             ----------------------------------*/
-
             getOpenWeatherData(STARTING_MAPBOX_COORD[0], STARTING_MAPBOX_COORD[1]);
             getNews();
 
