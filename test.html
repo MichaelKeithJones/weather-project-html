@@ -93,6 +93,7 @@
             #navbar {
                 padding: 30px 0;
                 display: flex;
+                flex-wrap: wrap;
                 justify-content: space-between;
             }
             #navbar a { text-decoration: none; }
@@ -128,7 +129,7 @@
                 cursor: default;
             }
             #navbar .searchbar {
-                width: 30vw;
+                width: 40vw;
                 padding: 6px;
                 margin-top: 8px;
                 font-size: 17px;
@@ -151,23 +152,28 @@
             #main {
                 max-width: 1300px;
                 margin: 0 auto;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                grid-template-rows: var(--main-section-height) var(--main-section-height) var(--main-section-height) 775px;
-                grid-gap: 15px;
+                display: flex;
+                flex-direction: column;
             }
-            #hourly-readings {
-                grid-column: span 2;
-            }
-            #top-stories {
-                grid-column: span 2;
+
+            /*-------------------------------------------*\
+                Main - Weather & Map
+            \*-------------------------------------------*/
+
+            #main .weather-map {
+                display: flex;
+                flex-wrap: wrap;
             }
 
             /*-------------------------------------------*\
                 Main - Current Weather
             \*-------------------------------------------*/
 
-            #current-weather { height: var(--main-section-height); }
+            #current-weather {
+                width: 40rem;
+                flex: 25rem;
+                height: 350px;
+            }
             #current-weather .date-time {
                 color: var(--salmon);
                 font-size: 16px;
@@ -230,14 +236,19 @@
                 Main - Map
             \*-------------------------------------------*/
             #map {
+                width: 40rem;
+                flex: 25rem;
                 height: var(--main-section-height);
+                margin-bottom: 20px;
             }
 
             /*-------------------------------------------*\
                 Main - 7 Day Forecast
             \*-------------------------------------------*/
 
-            #weekly-forecast { grid-column: span 2; }
+            #weekly-forecast {
+                flex-basis: var(--main-section-height);
+            }
             #weekly-forecast .title{
                 font-size: 32px;
                 padding-bottom: 5px;
@@ -246,10 +257,9 @@
             }
             #weekly-forecast .card-container {
                 padding-top: 10px;
-
-                display: grid;
-                grid-template-columns: repeat(7, 1fr);
-                grid-gap: 10px;
+                display: flex;
+                justify-content: space-around;
+                align-content: center;
             }
             #weekly-forecast .card {
                 width: var(--forecast-card-width);
@@ -341,11 +351,21 @@
                 place-items: center;
             }
 
+            @media (max-width: 1350px) { #weekly-forecast .card:nth-child(7) { display: none; } }
+            @media (max-width: 1175px) { #weekly-forecast .card:nth-child(6) { display: none; } }
+            @media (max-width: 1000px) { #weekly-forecast .card:nth-child(5) { display: none; } }
+            @media (max-width: 825px) { #weekly-forecast .card:nth-child(4) { display: none; } }
+            @media (max-width: 650px) { #weekly-forecast .card:nth-child(2) { display: none; } }
+            @media (max-width: 475px) { #weekly-forecast .card:nth-child(1) { display: none; } }
+
+
             /*-------------------------------------------*\
                 Main - Hourly Readings
             \*-------------------------------------------*/
 
-            #hourly-readings { grid-column: span 2; }
+            #hourly-readings {
+                flex-basis: var(--main-section-height);
+            }
             #hourly-readings .title{
                 font-size: 32px;
                 padding-bottom: 5px;
@@ -362,7 +382,18 @@
                 Main - Top Stories
             \*-------------------------------------------*/
 
-            #top-stories { grid-column: span 2; }
+            #top-stories {
+                flex-basis: 775px;
+            }
+            #top-stories a{
+                flex: 300px;
+
+                text-decoration: none;
+                text-transform: uppercase;
+
+                display: flex;
+                place-content: center;
+            }
             #top-stories .title{
                 font-size: 32px;
                 padding-bottom: 5px;
@@ -372,15 +403,14 @@
             #top-stories .card-container {
                 padding-top: 10px;
 
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                grid-template-rows: repeat(2, 1fr);
-                grid-gap: 10px;
-                place-items: center;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                /*place-content: center;*/
             }
             #top-stories .card {
                 position: relative;
-
                 width: 300px;
                 height: 350px;
                 border: none;
@@ -419,8 +449,6 @@
                 align-self: end;
                 color: var(--salmon);
                 font-size: 12px;
-                text-decoration: none;
-                text-transform: uppercase;
             }
             #top-stories .arrow {
                 text-align: right;
@@ -428,6 +456,9 @@
                 color: var(--salmon);
                 font-size: 12px;
             }
+
+            @media (max-width: 1247px) { #top-stories a:nth-child(n+7) { display: none; } }
+            @media (max-width: 930px) { #top-stories a:nth-child(n+5) { display: none; } }
 
             /*-------------------------------------------*\
                 Main - Footer
@@ -500,28 +531,30 @@
         ------------------------------------>
         <main id="main">
 
-            <div id="current-weather">
-                <div class="date-time"></div>
-                <div class="city-country"></div>
-                <div class="container">
-                    <div class="weather-icon"></div>
-                    <div class="current-temp"></div>
-                    <div class="feels-like"></div>
-                </div>
-                <div class="clouds-description"></div>
-                <div class="details-section">
-                    <ul>
-                        <li class="details-style wind-speed">Wind: </li>
-                        <li class="details-style humidity">Humidity: </li>
-                        <li class="details-style visibility">Visibility: </li>
-                        <li class="details-style pressure">Pressure: </li>
-                        <li class="details-style sunrise">Sunrise: </li>
-                        <li class="details-style sunset">Sunset: </li>
-                    </ul>
-                </div>
-            </div><!-- #current-weather -->
+            <div class="weather-map">
+                <div id="current-weather">
+                    <div class="date-time"></div>
+                    <div class="city-country"></div>
+                    <div class="container">
+                        <div class="weather-icon"></div>
+                        <div class="current-temp"></div>
+                        <div class="feels-like"></div>
+                    </div>
+                    <div class="clouds-description"></div>
+                    <div class="details-section">
+                        <ul>
+                            <li class="details-style wind-speed">Wind: </li>
+                            <li class="details-style humidity">Humidity: </li>
+                            <li class="details-style visibility">Visibility: </li>
+                            <li class="details-style pressure">Pressure: </li>
+                            <li class="details-style sunrise">Sunrise: </li>
+                            <li class="details-style sunset">Sunset: </li>
+                        </ul>
+                    </div>
+                </div><!-- #current-weather -->
 
-            <div id="map" class="box-shadow"></div><!-- #map -->
+                <div id="map" class="box-shadow"></div><!-- #map -->
+            </div>
 
             <div id="weekly-forecast">
                 <div class="title">Weekly Forecast</div>
@@ -919,7 +952,7 @@
                         $('#top-stories').find('.card-container').html("");
                         articles.forEach(article => {
                             $('#top-stories').find('.card-container').append(`
-                                <a target="_blank" class="card-runner" href="${article.url}">
+                                <a target="_blank" href="${article.url}">
                                     <div class="card box-shadow">
                                         <img src="${article.urlToImage}">
                                         <div class="card-body">
