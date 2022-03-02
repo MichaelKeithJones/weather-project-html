@@ -153,7 +153,8 @@
                 margin: 0 auto;
                 display: grid;
                 grid-template-columns: 1fr 1fr;
-                grid-template-rows: var(--main-section-height) var(--main-section-height) var(--main-section-height) 900px;
+                grid-template-rows: var(--main-section-height) var(--main-section-height) var(--main-section-height) 775px;
+                grid-gap: 15px;
             }
             #hourly-readings {
                 grid-column: span 2;
@@ -360,7 +361,6 @@
                 padding-bottom: 5px;
                 border-bottom: 1px solid var(--teal);
             }
-
             #top-stories .card-container {
                 padding-top: 10px;
 
@@ -377,14 +377,12 @@
                 height: 350px;
                 border: none;
             }
-
             #top-stories img {
                 height: 225px;
                 width: 100%;
                 object-fit: cover;
                 display: block;
             }
-
             #top-stories .card-body {
                 height: calc(100% - 225px);
                 width: 100%;
@@ -396,13 +394,11 @@
                 grid-template-rows: 25px 1fr 25px;
                 justify-content: space-between;
             }
-
             #top-stories .card-source {
                 grid-column: span 2;
                 color: black;
                 font-size: 16px;
             }
-
             #top-stories .card-description {
                 grid-column: span 2;
                 color: black;
@@ -410,7 +406,6 @@
                 padding: 0 10px;
                 border-left: 1px solid var(--teal);
             }
-
             #top-stories .card-runner {
                 text-align: left;
                 align-self: end;
@@ -419,7 +414,6 @@
                 text-decoration: none;
                 text-transform: uppercase;
             }
-
             #top-stories .arrow {
                 text-align: right;
                 align-self: end;
@@ -430,11 +424,34 @@
             /*-------------------------------------------*\
                 Main - Footer
             \*-------------------------------------------*/
-            #footer { background: var(--teal) }
-            #footer h5 {
+            #footer {
+                background: var(--teal);
+                display: grid;
+                grid-template-columns: repeat(2, 50%);
+                padding: 25px 0;
+            }
+            #footer .title {
                 border-bottom: 3px solid white;
                 font-size: 32px;
                 width: 100px;
+                margin-bottom: 5px;
+            }
+            #footer .about-link {
+                color: white;
+                margin: 0 50px;
+                align-self: center;
+                justify-self: start;
+            }
+            #footer .top-link {
+                margin: 0 50px;
+                align-self: start;
+                justify-self: end;
+            }
+            #footer ul{
+                list-style: none;
+            }
+            #footer li{
+                padding: 3px 0;
             }
             #footer a {
                 text-decoration: none;
@@ -442,6 +459,9 @@
             }
             #footer a:hover {
                 color: white;
+            }
+            #footer .copyright {
+                margin-top: 10px;
             }
 
         </style>
@@ -516,23 +536,19 @@
          FOOTER
         ------------------------------------>
         <footer id="footer" class="">
-            <div class="">
-                <p class="">
-                    <a href="#">Back to top</a>
-                </p>
-                <div class="">
-                    <h5 class="">About</h5>
-                    <ul class="">
-                        <li class="mb-1"><a href="#">Team</a></li>
-                        <li class="mb-1"><a href="#">Locations</a></li>
-                        <li class="mb-1"><a href="#">Privacy</a></li>
-                        <li class="mb-1"><a href="#">Terms</a></li>
-                    </ul>
-                </div>
-                <div class="">
-                    <small class="">&copy; 2017–2021</small>
-                </div>
+            <div class="about-link">
+                <div class="title">About</div>
+                <ul class="">
+                    <li class="mb-1"><a href="#">Team</a></li>
+                    <li class="mb-1"><a href="#">Locations</a></li>
+                    <li class="mb-1"><a href="#">Privacy</a></li>
+                    <li class="mb-1"><a href="#">Terms</a></li>
+                </ul>
+                <small class="copyright">&copy; 2017–2021</small>
             </div>
+            <p class="top-link">
+                <a href="#">Back to top</a>
+            </p>
         </footer><!-- #footer -->
 
         <!----------------------------------
