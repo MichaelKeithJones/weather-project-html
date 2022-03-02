@@ -10,9 +10,14 @@ Github Page: https://michaelkeithjones.github.io/weather-project-html/
 <p align="center"><img width="600" src="./img/Page-Bottom.png" alt="Material Bread logo"></p>
 <p align="center">Page Bottom</p>
 
+## Responsive Design
+
+The application resizes and adjust elements relative to the width of the viewing device as seen below:
+
 ## To Do
 
-- Add Celcius temperture switch/button
+- Add Celsius temperature switch/button
+- Add touch capability to mobile screen size.
 
 ## External Dependencies
 
