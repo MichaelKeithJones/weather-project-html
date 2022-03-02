@@ -649,28 +649,18 @@
             GLOBAL FUNCTIONS
             ----------------------------------*/
 
-            const geocode = (search, token) => {
-                return fetch('https://api.mapbox.com' + '/geocoding/v5/mapbox.places/' + encodeURIComponent(search) + '.json' + "?" + 'access_token=' + token)
-                    .then(function(res) {
-                        return res.json();
-                    }).then(function(data) {
-                        return data.features[0].center;
-                    });
+            const geocode = (search, token) => fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(search)}.json?access_token=${token}`)
+                .then(res => res.json())
+                .then(data => data.features[0].center);
+            const moveMarker = (lng, lat) => {
+                map.flyTo({zoom: 15, bearing: 0, center: [ lng, lat ], essential: true });
+                getOpenWeatherData(lng, lat);
             }
             const searchbarLocationUpdate = () => {
                 let location = $('#searchbar').val();
-                geocode(location, MAPBOX_API_KEY).then(function(coordinates) {
+                geocode(location, MAPBOX_API_KEY).then(coordinates => {
                     marker.setLngLat(coordinates);
-                    map.flyTo({
-                        zoom: 15,
-                        bearing: 0,
-                        center: [
-                            coordinates[0],
-                            coordinates[1]
-                        ],
-                        essential: true
-                    });
-                    getOpenWeatherData(coordinates[0], coordinates[1]);
+                    moveMarker(coordinates[0], coordinates[1]);
                 });
             }
 
@@ -680,6 +670,7 @@
 
             $('#search-button').on('click', event => searchbarLocationUpdate());
             $('#searchbar').on('keyup', event => { if (event.keyCode === 13) searchbarLocationUpdate(); });
+            marker.on('dragend', () => moveMarker(marker.getLngLat().lng, marker.getLngLat().lat));
 
             /*----------------------------------
             OPEN WEATHER API LOGIC
