@@ -343,23 +343,22 @@
         fetch(new Request(url))
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                // let articles = data.articles.slice(0, 8);
-                // $('#top-stories').find('.card-container').html("");
-                // articles.forEach(article => {
-                //     $('#top-stories').find('.card-container').append(`
-                //                 <a target="_blank" href="${article.url}">
-                //                     <div class="card box-shadow">
-                //                         <img src="${article.urlToImage}">
-                //                         <div class="card-body">
-                //                             <div class="card-source">${article.source.name}</div>
-                //                             <div class="card-description">${article.title}</div>
-                //                             <div class="card-runner">Read More</div><div class="arrow">&gt</div>
-                //                         </div>
-                //                     </div>
-                //                 </a>
-                //             `);
-                // });
+                let articles = data.articles.slice(0, 8);
+                $('#top-stories').find('.card-container').html("");
+                articles.forEach(article => {
+                    $('#top-stories').find('.card-container').append(`
+                                <a target="_blank" href="${article.url}">
+                                    <div class="card box-shadow">
+                                        <img src="${article.urlToImage}">
+                                        <div class="card-body">
+                                            <div class="card-source">${article.source.name}</div>
+                                            <div class="card-description">${article.title}</div>
+                                            <div class="card-runner">Read More</div><div class="arrow">&gt</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            `);
+                });
             });
     }
 
