@@ -14,10 +14,6 @@ Github Page: https://michaelkeithjones.github.io/weather-project-html/
 
 The application resizes and adjust elements relative to the width of the viewing device as seen below:
 
-## Note
-
-**The News API**'s news articles will not display through GitHub pages due to restrictions on request not done through "local:host".
-
 ## To Do
 
 - Add Celsius temperature switch/button
