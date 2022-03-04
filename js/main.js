@@ -334,13 +334,7 @@
 
 //--| Purpose: Fills the 5 news cards with current weather related news stories. |--//
     function getNews() {
-        const getDateTime = (dt, timezone) => new Date(dt * 1000 + (timezone * 1000));
-        const formatDate = date => date.toLocaleString('en-us', {month: 'short', day: 'numeric'});
-        const createUrl = (search, date, sortBy, key) => {
-            return `https://newsapi.org/v2/everything?q=${search}&from=${date}&sortBy=${sortBy}&apiKey=${key}`;
-        }
-        const url = createUrl('Weather', '2022-03-01', 'relevancy', NEWS_API_KEY);
-        fetch(new Request(url))
+        fetch('https://saurav.tech/NewsAPI/top-headlines/category/general/in.json')
             .then(res => res.json())
             .then(data => {
                 let articles = data.articles.slice(0, 8);
@@ -352,7 +346,7 @@
                                         <img src="${article.urlToImage}">
                                         <div class="card-body">
                                             <div class="card-source">${article.source.name}</div>
-                                            <div class="card-description">${article.title}</div>
+                                            <div class="card-description">${article.description}</div>
                                             <div class="card-runner">Read More</div><div class="arrow">&gt</div>
                                         </div>
                                     </div>

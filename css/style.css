@@ -393,8 +393,6 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-
-    /*place-content: center;*/
 }
 #top-stories .card {
     position: relative;
@@ -430,6 +428,7 @@ h2 {
     font-size: 10px;
     padding: 0 10px;
     border-left: 1px solid var(--teal);
+    overflow-y: hidden;
 }
 #top-stories .card-runner {
     text-align: left;
