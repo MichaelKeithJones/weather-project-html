@@ -13,6 +13,11 @@ Github Page: https://michaelkeithjones.github.io/weather-project-html/
 ## Responsive Design
 
 The application resizes and adjust elements relative to the width of the viewing device as seen below:
+<p align="center">
+    <img height="560" src="./img/home-full.png">
+    <img height="560" src="./img/home-mobile.png">
+</p>
+<p align="center">*Desktop / Mobile*</p>
 
 ## To Do
 
